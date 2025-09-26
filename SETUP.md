@@ -11,9 +11,9 @@ You need to configure the following secrets in your GitHub repository:
 - Create a new API key for Gemini
 - Add this as a repository secret named `GEMINI_API_KEY`
 
-### 2. GITHUB_ACTIONS_TOKEN
+### 2. AUTOMATION_TOKEN
 - Generate a random secure token (you can use `openssl rand -hex 32`)
-- Add this as a repository secret named `GITHUB_ACTIONS_TOKEN`
+- Add this as a repository secret named `AUTOMATION_TOKEN`
 - This is used to authenticate the GitHub Actions workflow with your API
 
 ## Setting up GitHub Secrets
@@ -51,7 +51,7 @@ curl -X POST http://localhost:3000/api/test-daily-post
 
 # Test with full AI pipeline (requires API key)
 curl -X POST \
-  -H "Authorization: Bearer YOUR_GITHUB_ACTIONS_TOKEN" \
+  -H "Authorization: Bearer YOUR_AUTOMATION_TOKEN" \
   http://localhost:3000/api/create-daily-post
 ```
 

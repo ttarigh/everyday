@@ -7,7 +7,7 @@ export default async function handler(req, res) {
 
   // Verify the request is coming from GitHub Actions (optional security)
   const authToken = req.headers.authorization;
-  if (authToken !== `Bearer ${process.env.GITHUB_ACTIONS_TOKEN}`) {
+  if (authToken !== `Bearer ${process.env.AUTOMATION_TOKEN}`) {
     return res.status(401).json({ error: 'Unauthorized' });
   }
 

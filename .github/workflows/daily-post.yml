@@ -34,14 +34,14 @@ jobs:
         sleep 10  # Wait for the server to start
       env:
         GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
-        GITHUB_ACTIONS_TOKEN: ${{ secrets.GITHUB_ACTIONS_TOKEN }}
+        AUTOMATION_TOKEN: ${{ secrets.AUTOMATION_TOKEN }}
         NEXT_PUBLIC_BASE_URL: http://localhost:3000
 
     - name: Create daily post
       run: |
         response=$(curl -s -w "%{http_code}" -X POST \
           -H "Content-Type: application/json" \
-          -H "Authorization: Bearer ${{ secrets.GITHUB_ACTIONS_TOKEN }}" \
+          -H "Authorization: Bearer ${{ secrets.AUTOMATION_TOKEN }}" \
           http://localhost:3000/api/create-daily-post \
           -d '{}')
         
@@ -61,7 +61,7 @@ jobs:
         echo "$body" | jq .
       env:
         GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
-        GITHUB_ACTIONS_TOKEN: ${{ secrets.GITHUB_ACTIONS_TOKEN }}
+        AUTOMATION_TOKEN: ${{ secrets.AUTOMATION_TOKEN }}
 
     - name: Commit and push changes
       run: |
