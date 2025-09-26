@@ -1,0 +1,89 @@
+name: Daily Selfie Post
+
+on:
+  schedule:
+    # Runs daily at 5:00 PM UTC (12:00 PM EST/1:00 PM EDT)
+    - cron: '0 17 * * *'
+  workflow_dispatch: # Allows manual triggering for testing
+
+jobs:
+  create-daily-post:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+        cache: 'npm'
+
+    - name: Install dependencies
+      run: npm ci
+
+    - name: Build Next.js app
+      run: npm run build
+
+    - name: Start Next.js app
+      run: |
+        npm start &
+        sleep 10  # Wait for the server to start
+      env:
+        GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+        GITHUB_ACTIONS_TOKEN: ${{ secrets.GITHUB_ACTIONS_TOKEN }}
+        NEXT_PUBLIC_BASE_URL: http://localhost:3000
+
+    - name: Create daily post
+      run: |
+        response=$(curl -s -w "%{http_code}" -X POST \
+          -H "Content-Type: application/json" \
+          -H "Authorization: Bearer ${{ secrets.GITHUB_ACTIONS_TOKEN }}" \
+          http://localhost:3000/api/create-daily-post \
+          -d '{}')
+        
+        http_code=${response: -3}
+        body=${response%???}
+        
+        echo "HTTP Status: $http_code"
+        echo "Response: $body"
+        
+        if [ "$http_code" -ne 200 ]; then
+          echo "Failed to create daily post"
+          echo "$body" | jq .
+          exit 1
+        fi
+        
+        echo "Daily post created successfully!"
+        echo "$body" | jq .
+      env:
+        GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+        GITHUB_ACTIONS_TOKEN: ${{ secrets.GITHUB_ACTIONS_TOKEN }}
+
+    - name: Commit and push changes
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        git add .
+        git diff --staged --quiet || git commit -m "Add daily selfie post - $(date +'%Y-%m-%d')"
+        git push
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Send notification on failure
+      if: failure()
+      run: |
+        echo "Daily post creation failed. Check the logs for details."
+        # You can add email notification here later
+        # curl -X POST "https://api.sendgrid.com/v3/mail/send" \
+        #   -H "Authorization: Bearer ${{ secrets.SENDGRID_API_KEY }}" \
+        #   -H "Content-Type: application/json" \
+        #   -d '{
+        #     "personalizations": [{"to": [{"email": "your-email@example.com"}]}],
+        #     "from": {"email": "noreply@everyday.tina.zone"},
+        #     "subject": "Daily Post Creation Failed",
+        #     "content": [{"type": "text/plain", "value": "The daily selfie post creation failed. Check GitHub Actions logs."}]
+        #   }'

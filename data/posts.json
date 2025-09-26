@@ -1,0 +1,59 @@
+{
+  "posts": [
+    {
+      "date": "Sep 26",
+      "caption": "Test post - AI generation coming soon! 🤖",
+      "image": "/temp.jpg",
+      "comments": [
+        {
+          "id": "1mxbim061",
+          "text": "#testpost",
+          "isHashtag": true,
+          "createdAt": "2025-09-26T21:54:33.357Z"
+        },
+        {
+          "id": "9vu8p1yls",
+          "text": "#aicoming",
+          "isHashtag": true,
+          "createdAt": "2025-09-26T21:54:33.357Z"
+        }
+      ],
+      "daysSinceBaseline": 1,
+      "generatedPrompt": "Test prompt - AI generation will be implemented soon",
+      "id": 3,
+      "createdAt": "2025-09-26T21:54:33.401Z"
+    },
+    {
+      "date": "Sep 26",
+      "caption": "Test post - AI generation coming soon! 🤖",
+      "image": "/temp.jpg",
+      "comments": [
+        {
+          "id": "rim498d6m",
+          "text": "#testpost",
+          "isHashtag": true,
+          "createdAt": "2025-09-26T21:48:30.946Z"
+        },
+        {
+          "id": "xu9s73ob6",
+          "text": "#aicoming",
+          "isHashtag": true,
+          "createdAt": "2025-09-26T21:48:30.946Z"
+        }
+      ],
+      "daysSinceBaseline": 366,
+      "generatedPrompt": "Test prompt - AI generation will be implemented soon",
+      "id": 2,
+      "createdAt": "2025-09-26T21:48:30.990Z"
+    },
+    {
+      "id": 1,
+      "date": "Sep 26",
+      "caption": "original picture of me:) can't wait to share my selfies everyday with you!",
+      "image": "/temp.jpg",
+      "comments": [],
+      "createdAt": "2024-09-26T00:00:00.000Z",
+      "isOriginal": true
+    }
+  ]
+}
