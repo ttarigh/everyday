@@ -46,6 +46,69 @@ const XIcon = ({ className }) => (
   </svg>
 );
 
+// Following Modal Component
+const FollowingModal = ({ isOpen, onClose }) => {
+  if (!isOpen) return null;
+
+  const handleProfileClick = () => {
+    window.open('https://www.instagram.com/wwwtinazone', '_blank');
+  };
+
+  return (
+    <div className="fixed inset-0 flex items-center justify-center z-50" style={{ backgroundColor: 'rgba(0, 0, 0, 0.65)' }}>
+      <div className="bg-white rounded-xl w-[400px] max-w-[90vw] max-h-[400px] overflow-hidden">
+        {/* Header */}
+        <div className="flex items-center justify-between px-4 py-3 border-b border-gray-200">
+          <div></div>
+          <h2 className="text-base font-semibold">Following</h2>
+          <button 
+            onClick={onClose}
+            className="p-1 hover:bg-gray-100 rounded-full transition-colors"
+          >
+            <XIcon className="w-5 h-5" />
+          </button>
+        </div>
+        
+        {/* Search bar */}
+        <div className="px-4 py-2 border-b border-gray-200">
+          <div className="relative">
+            <div className="absolute inset-y-0 left-3 flex items-center">
+              <svg className="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <circle cx="11" cy="11" r="8"/>
+                <path d="M21 21l-4.35-4.35"/>
+              </svg>
+            </div>
+            <input
+              type="text"
+              placeholder="Search"
+              className="w-full pl-10 pr-4 py-2 bg-gray-100 rounded-lg text-sm focus:outline-none focus:ring-1 focus:ring-gray-300"
+            />
+          </div>
+        </div>
+
+        {/* Profile list */}
+        <div className="px-4 py-2">
+          <button
+            onClick={handleProfileClick}
+            className="w-full flex items-center gap-3 p-2 hover:bg-gray-50 rounded-lg transition-colors"
+          >
+            <div className="w-11 h-11 rounded-full overflow-hidden flex-shrink-0">
+              <img src="/ig.png" alt="wwwtinazone" className="w-full h-full object-cover" />
+            </div>
+            <div className="flex-1 text-left">
+              <div className="font-semibold text-sm">wwwtinazone</div>
+              <div className="text-gray-500 text-sm">Tina</div>
+            </div>
+            <button className="px-4 py-1.5 text-sm font-semibold bg-gray-100 text-black rounded-md hover:bg-gray-200 transition-colors">
+              Following
+            </button>
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+};
+
 // Countdown timer component
 const CountdownTimer = () => {
   const [timeLeft, setTimeLeft] = useState("23:56:13");
@@ -53,11 +116,17 @@ const CountdownTimer = () => {
   useEffect(() => {
     const timer = setInterval(() => {
       const now = new Date();
-      const tomorrow = new Date(now);
-      tomorrow.setDate(now.getDate() + 1);
-      tomorrow.setHours(0, 0, 0, 0);
       
-      const diff = tomorrow - now;
+      // Calculate next noon (12:00 PM)
+      const nextNoon = new Date(now);
+      nextNoon.setHours(12, 0, 0, 0);
+      
+      // If it's already past noon today, set to noon tomorrow
+      if (now >= nextNoon) {
+        nextNoon.setDate(nextNoon.getDate() + 1);
+      }
+      
+      const diff = nextNoon - now;
       const hours = Math.floor(diff / (1000 * 60 * 60));
       const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
       const seconds = Math.floor((diff % (1000 * 60)) / 1000);
@@ -104,14 +173,14 @@ const PostModal = ({ post, isOpen, onClose, onNext, onPrev }) => {
       </button>
 
       {/* Modal content */}
-      <div className="flex max-w-5xl max-h-[90vh] bg-white">
+      <div className="flex max-w-7xl max-h-[90vh] bg-white">
         {/* Image area - square */}
-        <div className="w-[600px] h-[600px] bg-gray-300 flex items-center justify-center flex-shrink-0 overflow-hidden">
+        <div className="w-[800px] h-[800px] bg-gray-300 flex items-center justify-center flex-shrink-0 overflow-hidden">
           <img src={post.image} alt="Post" className="w-full h-full object-cover" />
         </div>
 
         {/* Sidebar */}
-        <div className="w-80 p-6 border-l border-gray-200">
+        <div className="w-96 p-6 border-l border-gray-200 flex flex-col">
           {/* Profile header */}
           <div className="flex items-center gap-3 mb-4">
             <div className="w-8 h-8 rounded-full bg-gradient-to-tr from-yellow-400 via-red-500 to-purple-500 p-0.5">
@@ -143,26 +212,24 @@ const PostModal = ({ post, isOpen, onClose, onNext, onPrev }) => {
 
           {/* Comments/Hashtags */}
           {post.comments && post.comments.length > 0 && (
-            <div className="space-y-2">
-              {post.comments.map((comment) => (
-                <div key={comment.id} className="flex items-start gap-3">
-                  <div className="w-8 h-8 rounded-full bg-gradient-to-tr from-yellow-400 via-red-500 to-purple-500 p-0.5">
-                    <div className="w-full h-full rounded-full bg-white p-0.5">
-                      <div className="w-full h-full rounded-full overflow-hidden">
-                        <img src="/temp.jpg" alt="Profile" className="w-full h-full object-cover" />
-                      </div>
+            <div className="flex-1 overflow-y-auto">
+              <div className="flex items-start gap-3">
+                <div className="w-8 h-8 rounded-full bg-gradient-to-tr from-yellow-400 via-red-500 to-purple-500 p-0.5 flex-shrink-0">
+                  <div className="w-full h-full rounded-full bg-white p-0.5">
+                    <div className="w-full h-full rounded-full overflow-hidden">
+                      <img src="/temp.jpg" alt="Profile" className="w-full h-full object-cover" />
                     </div>
                   </div>
-                  <div className="flex-1">
-                    <p className="text-sm">
-                      <span className="font-semibold">everyday.tina.zone</span>{' '}
-                      <span className={comment.isHashtag ? "text-blue-500" : ""}>
-                        {comment.text}
-                      </span>
-                    </p>
-                  </div>
                 </div>
-              ))}
+                <div className="flex-1 min-w-0">
+                  <p className="text-sm break-all hyphens-auto" style={{ wordBreak: 'break-word', overflowWrap: 'break-word' }}>
+                    <span className="font-semibold">everyday.tina.zone</span>{' '}
+                    <span className="text-blue-500">
+                      {post.comments.filter(c => c.isHashtag).map(c => c.text).join(' ')}
+                    </span>
+                  </p>
+                </div>
+              </div>
             </div>
           )}
         </div>
@@ -220,15 +287,13 @@ const MobilePostDetail = ({ post, isOpen, onClose }) => {
         
         {/* Comments/Hashtags */}
         {post.comments && post.comments.length > 0 && (
-          <div className="space-y-2">
-            {post.comments.map((comment) => (
-              <p key={comment.id} className="text-sm">
-                <span className="font-semibold">everyday.tina.zone</span>{' '}
-                <span className={comment.isHashtag ? "text-blue-500" : ""}>
-                  {comment.text}
-                </span>
-              </p>
-            ))}
+          <div>
+            <p className="text-sm break-all hyphens-auto" style={{ wordBreak: 'break-word', overflowWrap: 'break-word' }}>
+              <span className="font-semibold">everyday.tina.zone</span>{' '}
+              <span className="text-blue-500">
+                {post.comments.filter(c => c.isHashtag).map(c => c.text).join(' ')}
+              </span>
+            </p>
           </div>
         )}
       </div>
@@ -239,6 +304,7 @@ const MobilePostDetail = ({ post, isOpen, onClose }) => {
 export default function Home() {
   const [selectedPost, setSelectedPost] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isFollowingModalOpen, setIsFollowingModalOpen] = useState(false);
   const [visitCount, setVisitCount] = useState(0);
   const [posts, setPosts] = useState([]);
 
@@ -372,7 +438,12 @@ export default function Home() {
               <div className="flex gap-8 mb-4">
                 <span className="text-sm"><strong>{posts.length}</strong> posts</span>
                 <span className="text-sm"><strong>{visitCount}</strong> visitors</span>
-                <span className="text-sm"><strong>1</strong> following</span>
+                <button 
+                  onClick={() => setIsFollowingModalOpen(true)}
+                  className="text-sm hover:text-gray-600 transition-colors"
+                >
+                  <strong>1</strong> following
+                </button>
               </div>
               
               {/* Bio */}
@@ -425,10 +496,13 @@ export default function Home() {
                 <div className="font-semibold text-sm">{visitCount}</div>
                 <div className="text-xs text-gray-600">visitors</div>
               </div>
-              <div className="text-center">
+              <button 
+                onClick={() => setIsFollowingModalOpen(true)}
+                className="text-center hover:bg-gray-50 rounded-md p-2 transition-colors"
+              >
                 <div className="font-semibold text-sm">1</div>
                 <div className="text-xs text-gray-600">following</div>
-              </div>
+              </button>
             </div>
           </div>
         </div>
@@ -473,6 +547,12 @@ export default function Home() {
         post={selectedPost}
         isOpen={isModalOpen}
         onClose={closePost}
+      />
+      
+      {/* Following Modal */}
+      <FollowingModal 
+        isOpen={isFollowingModalOpen}
+        onClose={() => setIsFollowingModalOpen(false)}
       />
     </div>
   );

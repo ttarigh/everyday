@@ -52,17 +52,19 @@ export default async function handler(req, res) {
     const { imagePath, hasGeneratedImage } = await imageResponse.json();
     console.log('Image generation result:', { imagePath, hasGeneratedImage });
 
-    // Step 3: Create hashtags from the prompt
-    const hashtags = imagePrompt
-      .split(/[.!?]+/)
-      .filter(sentence => sentence.trim().length > 0)
-      .map(sentence => 
-        '#' + sentence.trim()
-          .toLowerCase()
-          .replace(/[^a-z0-9\s]/g, '')
-          .replace(/\s+/g, '')
-      )
-      .filter(tag => tag.length > 1);
+    // Step 3: Turn the image prompt into hashtags
+    // Remove "image prompt" from the beginning and clean up
+    const cleanPrompt = imagePrompt
+      .replace(/^image prompt[:\s]*/gi, '')
+      .replace(/^imageprompt[:\s]*/gi, '')
+      .trim();
+    
+    // Convert the prompt to hashtag format: add # and remove spaces/punctuation
+    const hashtagComment = '#' + cleanPrompt
+      .toLowerCase()
+      .replace(/[^a-z0-9\s]/g, '') // Remove punctuation
+      .replace(/\s+/g, '') // Remove all spaces
+      + ' #ai';
 
     // Step 4: Create the new post
     const today = new Date();
@@ -75,12 +77,12 @@ export default async function handler(req, res) {
       date: postDate,
       caption: caption,
       image: imagePath,
-      comments: hashtags.map(tag => ({
+      comments: hashtagComment ? [{
         id: Math.random().toString(36).substr(2, 9),
-        text: tag,
+        text: hashtagComment,
         isHashtag: true,
         createdAt: new Date().toISOString()
-      })),
+      }] : [],
       daysSinceBaseline,
       generatedPrompt: imagePrompt
     };
