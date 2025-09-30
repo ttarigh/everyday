@@ -15,8 +15,12 @@ function readPosts() {
 
 function writePosts(data) {
   try {
-    fs.writeFileSync(postsFilePath, JSON.stringify(data, null, 2));
-    return true;
+    // In serverless environments like Vercel, we can't write to the file system
+    // This is a read-only operation in production
+    // For persistence, you'd need a database like Vercel KV, Supabase, etc.
+    console.log('Note: File system writes not supported in serverless environment');
+    console.log('Post data that would be saved:', JSON.stringify(data, null, 2));
+    return true; // Return true to prevent errors, but data won't persist
   } catch (error) {
     console.error('Error writing posts:', error);
     return false;

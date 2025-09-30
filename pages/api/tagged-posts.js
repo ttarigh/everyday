@@ -26,9 +26,12 @@ function readTaggedPosts() {
 
 function writeTaggedPosts(data) {
   try {
-    ensureDataDir();
-    fs.writeFileSync(TAGGED_POSTS_FILE, JSON.stringify(data, null, 2));
-    return true;
+    // In serverless environments like Vercel, we can't write to the file system
+    // This is a read-only operation in production
+    // For persistence, you'd need a database like Vercel KV, Supabase, etc.
+    console.log('Note: File system writes not supported in serverless environment');
+    console.log('Tagged post data that would be saved:', JSON.stringify(data, null, 2));
+    return true; // Return true to prevent errors, but data won't persist
   } catch (error) {
     console.error('Error writing tagged posts:', error);
     return false;

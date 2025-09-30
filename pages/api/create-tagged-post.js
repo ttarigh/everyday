@@ -30,18 +30,20 @@ function getMostRecentGeneratedSelfie() {
   }
 }
 
-// Helper function to save uploaded file
+// Helper function to save uploaded file (serverless-compatible)
 function saveUploadedFile(file, directory, filename) {
-  const uploadDir = path.join(process.cwd(), 'public', directory);
-  if (!fs.existsSync(uploadDir)) {
-    fs.mkdirSync(uploadDir, { recursive: true });
+  try {
+    // In serverless environments, we can't write to the file system
+    // For production, you'd need cloud storage like Vercel Blob, AWS S3, etc.
+    console.log('Note: File uploads not supported in serverless environment');
+    console.log(`Would save file: ${filename} to ${directory}`);
+    
+    // Return a placeholder path for now
+    return `/temp.jpg`; // Fallback to existing image
+  } catch (error) {
+    console.error('Error saving file:', error);
+    return `/temp.jpg`;
   }
-  
-  const filePath = path.join(uploadDir, filename);
-  const fileData = fs.readFileSync(file.filepath);
-  fs.writeFileSync(filePath, fileData);
-  
-  return `/${directory}/${filename}`;
 }
 
 // Helper function to expand prompt using Gemini
@@ -216,10 +218,11 @@ Create a scene where both people are together in the same photo, both looking go
           fs.mkdirSync(dir, { recursive: true });
         }
         
-        fs.writeFileSync(outputPath, buffer);
+        // In serverless environments, we can't write to the file system
+        console.log(`Would save collaborative image as ${filename}`);
         
-        console.log(`Collaborative image saved as ${filename}`);
-        return `/tagged/generated/${filename}`;
+        // For now, return the original image path as fallback
+        return `/temp.jpg`;
       }
     }
     

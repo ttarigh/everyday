@@ -1,42 +1,29 @@
-import fs from 'fs';
-import path from 'path';
+// Simple in-memory storage for visits (resets on deployment)
+// In production, you'd want to use a database like Vercel KV, Supabase, or similar
+let visitCount = 0;
 
-// File-based storage for visits that persists across deployments
-const VISITS_FILE = path.join(process.cwd(), 'data', 'visits.json');
-
-// Ensure data directory exists
-function ensureDataDir() {
-  const dataDir = path.dirname(VISITS_FILE);
-  if (!fs.existsSync(dataDir)) {
-    fs.mkdirSync(dataDir, { recursive: true });
-  }
-}
-
-// Read visit count from file
+// For production, we'll use a simple counter that resets on deployment
+// This is a temporary solution - for persistence, use a database
 function getVisitCount() {
   try {
-    ensureDataDir();
-    if (fs.existsSync(VISITS_FILE)) {
-      const data = fs.readFileSync(VISITS_FILE, 'utf8');
-      const parsed = JSON.parse(data);
-      return parsed.visits || 0;
+    // Try to read from environment variable for initial count
+    const envCount = process.env.INITIAL_VISIT_COUNT;
+    if (envCount && visitCount === 0) {
+      visitCount = parseInt(envCount, 10) || 0;
     }
-    return 0;
+    return visitCount;
   } catch (error) {
     console.error('Error reading visit count:', error);
     return 0;
   }
 }
 
-// Write visit count to file
 function setVisitCount(count) {
   try {
-    ensureDataDir();
-    const data = { visits: count, lastUpdated: new Date().toISOString() };
-    fs.writeFileSync(VISITS_FILE, JSON.stringify(data, null, 2));
+    visitCount = count;
     return true;
   } catch (error) {
-    console.error('Error writing visit count:', error);
+    console.error('Error setting visit count:', error);
     return false;
   }
 }
