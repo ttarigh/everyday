@@ -27,15 +27,11 @@ const HeartIcon = ({ className, filled = false }) => (
 
 // Arrow icons for navigation
 const ChevronLeft = ({ className }) => (
-  <svg className={className} width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-    <polyline points="15,18 9,12 15,6"></polyline>
-  </svg>
+  <span className={`${className} font-bold text-xl leading-none`} style={{ transform: 'translateX(-1px)' }}>‹</span>
 );
 
 const ChevronRight = ({ className }) => (
-  <svg className={className} width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-    <polyline points="9,18 15,12 9,6"></polyline>
-  </svg>
+  <span className={`${className} font-bold text-xl leading-none`} style={{ transform: 'translateX(1px)' }}>›</span>
 );
 
 // X icon for close button
@@ -45,6 +41,366 @@ const XIcon = ({ className }) => (
     <line x1="6" y1="6" x2="18" y2="18"></line>
   </svg>
 );
+
+// Story Viewer Component
+const StoryViewer = ({ isOpen, onClose, onStoryComplete }) => {
+  const [currentStoryIndex, setCurrentStoryIndex] = useState(0);
+  const [progress, setProgress] = useState(0);
+  const [isPaused, setIsPaused] = useState(false);
+  
+  const stories = [
+    { id: 1, image: '/story/1.JPG' },
+    { id: 2, image: '/story/2.JPG' },
+    { id: 3, image: '/story/3.JPG' },
+    { id: 4, image: '/story/4.JPG' },
+    { id: 5, image: '/story/5.JPG' }
+  ];
+
+  const STORY_DURATION = 5000; // 5 seconds per story
+
+  useEffect(() => {
+    if (!isOpen) {
+      setCurrentStoryIndex(0);
+      setProgress(0);
+      return;
+    }
+
+    if (isPaused) return;
+
+    const interval = setInterval(() => {
+      setProgress(prev => {
+        if (prev >= 100) {
+          // Move to next story
+          if (currentStoryIndex < stories.length - 1) {
+            setCurrentStoryIndex(currentStoryIndex + 1);
+            return 0;
+          } else {
+            // End of stories, mark as viewed and close viewer
+            onStoryComplete();
+            onClose();
+            return 0;
+          }
+        }
+        return prev + (100 / (STORY_DURATION / 100));
+      });
+    }, 100);
+
+    return () => clearInterval(interval);
+  }, [isOpen, currentStoryIndex, isPaused, onClose]);
+
+  // Keyboard navigation
+  useEffect(() => {
+    if (!isOpen) return;
+
+    const handleKeyDown = (e) => {
+      switch (e.key) {
+        case 'ArrowLeft':
+          e.preventDefault();
+          goToPrevStory();
+          break;
+        case 'ArrowRight':
+          e.preventDefault();
+          goToNextStory();
+          break;
+        case 'Escape':
+          e.preventDefault();
+          onClose();
+          break;
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [isOpen, currentStoryIndex]);
+
+  const goToNextStory = () => {
+    if (currentStoryIndex < stories.length - 1) {
+      setCurrentStoryIndex(currentStoryIndex + 1);
+      setProgress(0);
+    } else {
+      // Mark as viewed when manually advancing past last story
+      onStoryComplete();
+      onClose();
+    }
+  };
+
+  const goToPrevStory = () => {
+    if (currentStoryIndex > 0) {
+      setCurrentStoryIndex(currentStoryIndex - 1);
+      setProgress(0);
+    }
+  };
+
+  const handleTouchStart = (e) => {
+    const touch = e.touches[0];
+    const screenWidth = window.innerWidth;
+    const touchX = touch.clientX;
+    
+    if (touchX < screenWidth / 2) {
+      goToPrevStory();
+    } else {
+      goToNextStory();
+    }
+  };
+
+  const handleClick = (e) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    const clickX = e.clientX - rect.left;
+    const width = rect.width;
+    
+    if (clickX < width / 2) {
+      goToPrevStory();
+    } else {
+      goToNextStory();
+    }
+  };
+
+  if (!isOpen) return null;
+
+  const calculateDaysAgo = () => {
+    const startDate = new Date('2025-09-25');
+    const currentDate = new Date();
+    const diffTime = Math.abs(currentDate - startDate);
+    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+    return diffDays === 1 ? '1 day ago' : `${diffDays} days ago`;
+  };
+
+  return (
+    <div className="fixed inset-0 bg-gray-900 bg-opacity-90 z-50 flex items-center justify-center">
+      {/* Desktop Navigation Arrows - positioned on either side of story container */}
+      <button 
+        onClick={goToPrevStory}
+        className="hidden md:block absolute top-1/2 -translate-y-1/2 left-4 z-20 w-10 h-10 bg-white bg-opacity-80 hover:bg-opacity-100 rounded-full flex items-center justify-center text-black transition-all"
+      >
+        <ChevronLeft />
+      </button>
+      
+      <button 
+        onClick={goToNextStory}
+        className="hidden md:block absolute top-1/2 -translate-y-1/2 right-4 z-20 w-10 h-10 bg-white bg-opacity-80 hover:bg-opacity-100 rounded-full flex items-center justify-center text-black transition-all"
+      >
+        <ChevronRight />
+      </button>
+
+      {/* Story Container */}
+      <div className="relative w-full h-full max-w-md mx-auto bg-black md:rounded-2xl md:max-h-[90vh] overflow-hidden">
+        {/* Progress bars */}
+        <div className="absolute top-4 left-4 right-4 z-10 flex gap-1">
+          {stories.map((_, index) => (
+            <div key={index} className="flex-1 h-0.5 bg-gray-500 bg-opacity-50 rounded-full overflow-hidden">
+              <div 
+                className={`h-full transition-all duration-100 ease-linear ${
+                  index < currentStoryIndex ? 'bg-white w-full' :
+                  index === currentStoryIndex ? 'bg-white' : 'bg-transparent'
+                }`}
+                style={{ 
+                  width: index === currentStoryIndex ? `${progress}%` : 
+                         index < currentStoryIndex ? '100%' : '0%'
+                }}
+              />
+            </div>
+          ))}
+        </div>
+
+        {/* Header */}
+        <div className="absolute top-8 left-4 right-4 z-10 flex items-center justify-between pt-4">
+          <div className="flex items-center gap-2">
+            <div className="w-8 h-8 rounded-full overflow-hidden border-2 border-white">
+              <img src="/temp.jpg" alt="Profile" className="w-full h-full object-cover" />
+            </div>
+            <span className="text-white text-sm font-medium">everyday.tina.zone</span>
+            <span className="text-white text-sm opacity-60">{calculateDaysAgo()}</span>
+          </div>
+          <button 
+            onClick={onClose}
+            className="text-white p-1"
+          >
+            <XIcon className="w-6 h-6" />
+          </button>
+        </div>
+
+        {/* Story Image */}
+        <div 
+          className="w-full h-full flex items-center justify-center cursor-pointer select-none"
+          onClick={handleClick}
+          onTouchStart={handleTouchStart}
+          onMouseDown={() => setIsPaused(true)}
+          onMouseUp={() => setIsPaused(false)}
+          onMouseLeave={() => setIsPaused(false)}
+        >
+          <img 
+            src={stories[currentStoryIndex].image} 
+            alt={`Story ${currentStoryIndex + 1}`}
+            className="w-full h-full object-cover"
+            draggable={false}
+          />
+        </div>
+
+        {/* Mobile Navigation areas (invisible) */}
+        <div className="absolute inset-0 flex md:hidden">
+          <div className="w-1/2 h-full" onClick={goToPrevStory} />
+          <div className="w-1/2 h-full" onClick={goToNextStory} />
+        </div>
+      </div>
+    </div>
+  );
+};
+
+// Tagged Post Modal Component
+const TaggedPostModal = ({ isOpen, onClose, onPostCreated }) => {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [formData, setFormData] = useState({
+    instagramHandle: '',
+    userPrompt: '',
+    selfie: null
+  });
+  const [previewUrl, setPreviewUrl] = useState(null);
+
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setFormData(prev => ({ ...prev, selfie: file }));
+      
+      // Create preview URL
+      const reader = new FileReader();
+      reader.onload = (e) => setPreviewUrl(e.target.result);
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    
+    if (!formData.instagramHandle || !formData.selfie) {
+      alert('Instagram handle and selfie are required!');
+      return;
+    }
+
+    setIsSubmitting(true);
+    
+    try {
+      const submitFormData = new FormData();
+      submitFormData.append('instagramHandle', formData.instagramHandle);
+      submitFormData.append('userPrompt', formData.userPrompt);
+      submitFormData.append('selfie', formData.selfie);
+
+      const response = await fetch('/api/create-tagged-post', {
+        method: 'POST',
+        body: submitFormData,
+      });
+
+      if (response.ok) {
+        const result = await response.json();
+        console.log('Tagged post created:', result);
+        
+        // Reset form
+        setFormData({ instagramHandle: '', userPrompt: '', selfie: null });
+        setPreviewUrl(null);
+        
+        // Close modal and refresh data
+        onClose();
+        if (onPostCreated) onPostCreated();
+        
+        alert('Your collaborative post has been created! 🎉');
+      } else {
+        const error = await response.json();
+        throw new Error(error.error || 'Failed to create post');
+      }
+    } catch (error) {
+      console.error('Error creating tagged post:', error);
+      alert('Failed to create post. Please try again.');
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  if (!isOpen) return null;
+
+  return (
+    <div className="fixed inset-0 flex items-center justify-center z-50" style={{ backgroundColor: 'rgba(0, 0, 0, 0.65)' }}>
+      <div className="bg-white rounded-xl w-[400px] max-w-[90vw] p-6">
+        {/* Header */}
+        <div className="flex items-center justify-between mb-6">
+          <h2 className="text-lg font-semibold">Post with @everyday.tina.zone</h2>
+          <button 
+            onClick={onClose}
+            className="p-1 hover:bg-gray-100 rounded-full transition-colors"
+            disabled={isSubmitting}
+          >
+            <XIcon className="w-5 h-5" />
+          </button>
+        </div>
+        
+        <form onSubmit={handleSubmit}>
+          {/* Selfie Upload */}
+          <div className="mb-6">
+            <label className="block text-sm font-medium text-gray-700 mb-2">Your selfie *</label>
+            <div className="flex justify-center">
+              <label className="w-24 h-24 border-2 border-dashed border-gray-300 rounded-full flex items-center justify-center cursor-pointer hover:border-gray-400 transition-colors overflow-hidden">
+                {previewUrl ? (
+                  <img src={previewUrl} alt="Preview" className="w-full h-full object-cover" />
+                ) : (
+                  <div className="text-center text-gray-500">
+                    <div className="text-xs">your selfie</div>
+                  </div>
+                )}
+                <input
+                  type="file"
+                  accept="image/*"
+                  onChange={handleFileChange}
+                  className="hidden"
+                  required
+                  disabled={isSubmitting}
+                />
+              </label>
+            </div>
+          </div>
+
+          {/* Instagram Handle */}
+          <div className="mb-6">
+            <label className="block text-sm font-medium text-gray-700 mb-2">Instagram handle *</label>
+            <input
+              type="text"
+              value={formData.instagramHandle}
+              onChange={(e) => setFormData(prev => ({ ...prev, instagramHandle: e.target.value }))}
+              placeholder="instagram handle"
+              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              required
+              disabled={isSubmitting}
+            />
+          </div>
+
+          {/* Prompt */}
+          <div className="mb-6">
+            <label className="block text-sm font-medium text-gray-700 mb-2">Prompt (optional)</label>
+            <textarea
+              value={formData.userPrompt}
+              onChange={(e) => setFormData(prev => ({ ...prev, userPrompt: e.target.value }))}
+              placeholder="prompt (optional)"
+              rows={3}
+              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none"
+              disabled={isSubmitting}
+            />
+          </div>
+
+          {/* Submit Button */}
+          <button
+            type="submit"
+            disabled={isSubmitting}
+            className="w-full bg-blue-500 hover:bg-blue-600 text-white font-semibold py-3 px-4 rounded-lg transition-colors disabled:bg-blue-300 disabled:cursor-not-allowed"
+          >
+            {isSubmitting ? 'Creating...' : 'Share'}
+          </button>
+
+          {/* Warning Text */}
+          <p className="text-center text-red-500 text-xs mt-4">
+            a post between friends can never be deleted
+          </p>
+        </form>
+      </div>
+    </div>
+  );
+};
 
 // Following Modal Component
 const FollowingModal = ({ isOpen, onClose }) => {
@@ -144,6 +500,8 @@ const CountdownTimer = () => {
 
 // Post Modal Component for Desktop
 const PostModal = ({ post, isOpen, onClose, onNext, onPrev }) => {
+  const [showTags, setShowTags] = useState(false);
+  
   if (!isOpen || !post) return null;
 
   return (
@@ -175,36 +533,99 @@ const PostModal = ({ post, isOpen, onClose, onNext, onPrev }) => {
       {/* Modal content */}
       <div className="flex max-w-7xl max-h-[90vh] bg-white">
         {/* Image area - square */}
-        <div className="w-[800px] h-[800px] bg-gray-300 flex items-center justify-center flex-shrink-0 overflow-hidden">
-          <img src={post.image} alt="Post" className="w-full h-full object-cover" />
+        <div className="w-[800px] h-[800px] bg-gray-300 flex items-center justify-center flex-shrink-0 overflow-hidden relative">
+          <img src={post.generatedImage || post.image} alt="Post" className="w-full h-full object-cover" />
+          
+          {/* Tagged indicator for tagged posts */}
+          {post.tags && post.tags.length > 0 && (
+            <>
+              {/* Clickable person icon */}
+              <div className="absolute bottom-4 left-4">
+                <button 
+                  onClick={() => setShowTags(!showTags)}
+                  className="w-8 h-8 bg-gray-800 bg-opacity-70 rounded-full flex items-center justify-center cursor-pointer hover:bg-opacity-90 transition-opacity"
+                  title={showTags ? "Hide tags" : "Show tags"}
+                >
+                  <svg className="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
+                    <path fillRule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clipRule="evenodd" />
+                  </svg>
+                </button>
+              </div>
+              
+              {/* Tag overlay */}
+              {showTags && (
+                <div className="absolute bottom-16 left-8">
+                  <div className="bg-gray-800 text-white px-3 py-1 rounded-md text-sm font-medium relative">
+                    {post.tags[0].username}
+                    {/* Arrow pointing down */}
+                    <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-gray-800"></div>
+                  </div>
+                </div>
+              )}
+            </>
+          )}
         </div>
 
         {/* Sidebar */}
         <div className="w-96 p-6 border-l border-gray-200 flex flex-col">
           {/* Profile header */}
           <div className="flex items-center gap-3 mb-4">
-            <div className="w-8 h-8 rounded-full bg-gradient-to-tr from-yellow-400 via-red-500 to-purple-500 p-0.5">
-              <div className="w-full h-full rounded-full bg-white p-0.5">
-                <div className="w-full h-full rounded-full overflow-hidden">
-                  <img src="/temp.jpg" alt="Profile" className="w-full h-full object-cover" />
+            {post.userInstagram ? (
+              /* Tagged post - no gradient for user */
+              <div className="w-8 h-8 rounded-full overflow-hidden">
+                <img 
+                  src={post.userSelfie} 
+                  alt="Profile" 
+                  className="w-full h-full object-cover" 
+                />
+              </div>
+            ) : (
+              /* Regular post - gradient for everyday.tina.zone */
+              <div className="w-8 h-8 rounded-full bg-gradient-to-tr from-yellow-400 via-red-500 to-purple-500 p-0.5">
+                <div className="w-full h-full rounded-full bg-white p-0.5">
+                  <div className="w-full h-full rounded-full overflow-hidden">
+                    <img 
+                      src="/temp.jpg" 
+                      alt="Profile" 
+                      className="w-full h-full object-cover" 
+                    />
+                  </div>
                 </div>
               </div>
-            </div>
-            <span className="font-semibold text-sm">everyday.tina.zone</span>
+            )}
+            <span className="font-semibold text-sm">
+              {post.userInstagram || "everyday.tina.zone"}
+            </span>
           </div>
 
           {/* Post info */}
           <div className="flex items-start gap-3 mb-4">
-            <div className="w-8 h-8 rounded-full bg-gradient-to-tr from-yellow-400 via-red-500 to-purple-500 p-0.5">
-              <div className="w-full h-full rounded-full bg-white p-0.5">
-                <div className="w-full h-full rounded-full overflow-hidden">
-                  <img src="/temp.jpg" alt="Profile" className="w-full h-full object-cover" />
+            {post.userInstagram ? (
+              /* Tagged post - no gradient for user */
+              <div className="w-8 h-8 rounded-full overflow-hidden">
+                <img 
+                  src={post.userSelfie} 
+                  alt="Profile" 
+                  className="w-full h-full object-cover" 
+                />
+              </div>
+            ) : (
+              /* Regular post - gradient for everyday.tina.zone */
+              <div className="w-8 h-8 rounded-full bg-gradient-to-tr from-yellow-400 via-red-500 to-purple-500 p-0.5">
+                <div className="w-full h-full rounded-full bg-white p-0.5">
+                  <div className="w-full h-full rounded-full overflow-hidden">
+                    <img 
+                      src="/temp.jpg" 
+                      alt="Profile" 
+                      className="w-full h-full object-cover" 
+                    />
+                  </div>
                 </div>
               </div>
-            </div>
+            )}
             <div className="flex-1">
               <p className="text-sm">
-                <span className="font-semibold">everyday.tina.zone</span> {post.caption}
+                <span className="font-semibold">{post.userInstagram || "everyday.tina.zone"}</span> {post.caption}
               </p>
               <p className="text-xs text-gray-500 mt-1">{post.date}</p>
             </div>
@@ -214,16 +635,24 @@ const PostModal = ({ post, isOpen, onClose, onNext, onPrev }) => {
           {post.comments && post.comments.length > 0 && (
             <div className="flex-1 overflow-y-auto">
               <div className="flex items-start gap-3">
-                <div className="w-8 h-8 rounded-full bg-gradient-to-tr from-yellow-400 via-red-500 to-purple-500 p-0.5 flex-shrink-0">
-                  <div className="w-full h-full rounded-full bg-white p-0.5">
-                    <div className="w-full h-full rounded-full overflow-hidden">
-                      <img src="/temp.jpg" alt="Profile" className="w-full h-full object-cover" />
+                {post.userInstagram ? (
+                  /* Tagged post - show user's profile for hashtags */
+                  <div className="w-8 h-8 rounded-full overflow-hidden flex-shrink-0">
+                    <img src={post.userSelfie} alt="Profile" className="w-full h-full object-cover" />
+                  </div>
+                ) : (
+                  /* Regular post - show everyday.tina.zone profile */
+                  <div className="w-8 h-8 rounded-full bg-gradient-to-tr from-yellow-400 via-red-500 to-purple-500 p-0.5 flex-shrink-0">
+                    <div className="w-full h-full rounded-full bg-white p-0.5">
+                      <div className="w-full h-full rounded-full overflow-hidden">
+                        <img src="/temp.jpg" alt="Profile" className="w-full h-full object-cover" />
+                      </div>
                     </div>
                   </div>
-                </div>
+                )}
                 <div className="flex-1 min-w-0">
                   <p className="text-sm break-all hyphens-auto" style={{ wordBreak: 'break-word', overflowWrap: 'break-word' }}>
-                    <span className="font-semibold">everyday.tina.zone</span>{' '}
+                    <span className="font-semibold">{post.userInstagram || "everyday.tina.zone"}</span>{' '}
                     <span className="text-blue-500">
                       {post.comments.filter(c => c.isHashtag).map(c => c.text).join(' ')}
                     </span>
@@ -240,6 +669,8 @@ const PostModal = ({ post, isOpen, onClose, onNext, onPrev }) => {
 
 // Mobile Post Detail Component
 const MobilePostDetail = ({ post, isOpen, onClose }) => {
+  const [showTags, setShowTags] = useState(false);
+  
   if (!isOpen || !post) return null;
 
   return (
@@ -256,14 +687,32 @@ const MobilePostDetail = ({ post, isOpen, onClose }) => {
       {/* Profile section */}
       <div className="flex items-center justify-between p-4">
         <div className="flex items-center gap-3">
-          <div className="w-8 h-8 rounded-full bg-gradient-to-tr from-yellow-400 via-red-500 to-purple-500 p-0.5">
-            <div className="w-full h-full rounded-full bg-white p-0.5">
-              <div className="w-full h-full rounded-full overflow-hidden">
-                <img src="/temp.jpg" alt="Profile" className="w-full h-full object-cover" />
+          {post.userInstagram ? (
+            /* Tagged post - no gradient for user */
+            <div className="w-8 h-8 rounded-full overflow-hidden">
+              <img 
+                src={post.userSelfie} 
+                alt="Profile" 
+                className="w-full h-full object-cover" 
+              />
+            </div>
+          ) : (
+            /* Regular post - gradient for everyday.tina.zone */
+            <div className="w-8 h-8 rounded-full bg-gradient-to-tr from-yellow-400 via-red-500 to-purple-500 p-0.5">
+              <div className="w-full h-full rounded-full bg-white p-0.5">
+                <div className="w-full h-full rounded-full overflow-hidden">
+                  <img 
+                    src="/temp.jpg" 
+                    alt="Profile" 
+                    className="w-full h-full object-cover" 
+                  />
+                </div>
               </div>
             </div>
-          </div>
-          <span className="font-semibold text-sm">everyday.tina.zone</span>
+          )}
+          <span className="font-semibold text-sm">
+            {post.userInstagram || "everyday.tina.zone"}
+          </span>
         </div>
         <button className="px-3 py-1 text-sm font-semibold border border-gray-300 rounded-md">
           Following
@@ -271,8 +720,37 @@ const MobilePostDetail = ({ post, isOpen, onClose }) => {
       </div>
 
       {/* Image */}
-      <div className="aspect-square bg-gray-300 flex items-center justify-center overflow-hidden">
-        <img src={post.image} alt="Post" className="w-full h-full object-cover" />
+      <div className="aspect-square bg-gray-300 flex items-center justify-center overflow-hidden relative">
+        <img src={post.generatedImage || post.image} alt="Post" className="w-full h-full object-cover" />
+        
+        {/* Tagged indicator for tagged posts */}
+        {post.tags && post.tags.length > 0 && (
+          <>
+            {/* Clickable person icon */}
+            <div className="absolute bottom-2 left-2">
+              <button 
+                onClick={() => setShowTags(!showTags)}
+                className="w-6 h-6 bg-gray-800 bg-opacity-70 rounded-full flex items-center justify-center cursor-pointer hover:bg-opacity-90 transition-opacity"
+                title={showTags ? "Hide tags" : "Show tags"}
+              >
+                <svg className="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20">
+                  <path fillRule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clipRule="evenodd" />
+                </svg>
+              </button>
+            </div>
+            
+            {/* Tag overlay */}
+            {showTags && (
+              <div className="absolute bottom-10 left-4">
+                <div className="bg-gray-800 text-white px-2 py-1 rounded text-xs font-medium relative">
+                  {post.tags[0].username}
+                  {/* Arrow pointing down */}
+                  <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-3 border-r-3 border-t-3 border-transparent border-t-gray-800"></div>
+                </div>
+              </div>
+            )}
+          </>
+        )}
       </div>
 
       {/* Bottom section */}
@@ -281,7 +759,7 @@ const MobilePostDetail = ({ post, isOpen, onClose }) => {
           <HeartIcon className="w-6 h-6" filled={true} />
         </div>
         <p className="text-sm mb-1">
-          <span className="font-semibold">everyday.tina.zone</span> {post.caption}
+          <span className="font-semibold">{post.userInstagram || "everyday.tina.zone"}</span> {post.caption}
         </p>
         <p className="text-xs text-gray-500 mb-3">{post.date}</p>
         
@@ -289,7 +767,7 @@ const MobilePostDetail = ({ post, isOpen, onClose }) => {
         {post.comments && post.comments.length > 0 && (
           <div>
             <p className="text-sm break-all hyphens-auto" style={{ wordBreak: 'break-word', overflowWrap: 'break-word' }}>
-              <span className="font-semibold">everyday.tina.zone</span>{' '}
+              <span className="font-semibold">{post.userInstagram || "everyday.tina.zone"}</span>{' '}
               <span className="text-blue-500">
                 {post.comments.filter(c => c.isHashtag).map(c => c.text).join(' ')}
               </span>
@@ -305,8 +783,14 @@ export default function Home() {
   const [selectedPost, setSelectedPost] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isFollowingModalOpen, setIsFollowingModalOpen] = useState(false);
+  const [isStoryViewerOpen, setIsStoryViewerOpen] = useState(false);
+  const [hasViewedStory, setHasViewedStory] = useState(false);
   const [visitCount, setVisitCount] = useState(0);
   const [posts, setPosts] = useState([]);
+  const [taggedPosts, setTaggedPosts] = useState([]);
+  const [activeTab, setActiveTab] = useState('posts');
+  const [isTaggedModalOpen, setIsTaggedModalOpen] = useState(false);
+  const [showGridTags, setShowGridTags] = useState({});
 
   // Track site visits
   useEffect(() => {
@@ -378,6 +862,24 @@ export default function Home() {
     loadPosts();
   }, []);
 
+  // Load tagged posts from API
+  useEffect(() => {
+    const loadTaggedPosts = async () => {
+      try {
+        const response = await fetch('/api/tagged-posts');
+        if (response.ok) {
+          const data = await response.json();
+          setTaggedPosts(data.taggedPosts || []);
+        }
+      } catch (error) {
+        console.error('Error loading tagged posts:', error);
+        setTaggedPosts([]);
+      }
+    };
+
+    loadTaggedPosts();
+  }, []);
+
   const openPost = (post) => {
     setSelectedPost(post);
     setIsModalOpen(true);
@@ -404,6 +906,18 @@ export default function Home() {
     }
   };
 
+  const refreshTaggedPosts = async () => {
+    try {
+      const response = await fetch('/api/tagged-posts');
+      if (response.ok) {
+        const data = await response.json();
+        setTaggedPosts(data.taggedPosts || []);
+      }
+    } catch (error) {
+      console.error('Error refreshing tagged posts:', error);
+    }
+  };
+
   return (
     <div className="min-h-screen bg-white">
       {/* Main container */}
@@ -415,13 +929,20 @@ export default function Home() {
           <div className="hidden md:grid grid-cols-3 gap-1 mb-6">
             {/* Profile Avatar - aligned with left grid post */}
             <div className="flex justify-center">
-              <div className="w-40 h-40 rounded-full bg-gradient-to-tr from-yellow-400 via-red-500 to-purple-500 p-1">
+              <button 
+                onClick={() => setIsStoryViewerOpen(true)}
+                className={`w-40 h-40 rounded-full p-1 hover:scale-105 transition-transform cursor-pointer ${
+                  hasViewedStory 
+                    ? 'bg-gray-400' 
+                    : 'bg-gradient-to-tr from-yellow-400 via-red-500 to-purple-500'
+                }`}
+              >
                 <div className="w-full h-full rounded-full bg-white p-1">
                   <div className="w-full h-full rounded-full overflow-hidden">
                     <img src="/temp.jpg" alt="Profile" className="w-full h-full object-cover" />
                   </div>
                 </div>
-              </div>
+              </button>
             </div>
             
             {/* Profile Info - spans middle and right columns, aligned with middle grid post */}
@@ -459,13 +980,20 @@ export default function Home() {
           <div className="md:hidden">
             {/* Top row: Avatar, username, following button */}
             <div className="flex items-center gap-4 mb-4">
-              <div className="w-20 h-20 rounded-full bg-gradient-to-tr from-yellow-400 via-red-500 to-purple-500 p-0.5 flex-shrink-0">
+              <button 
+                onClick={() => setIsStoryViewerOpen(true)}
+                className={`w-20 h-20 rounded-full p-0.5 flex-shrink-0 hover:scale-105 transition-transform cursor-pointer ${
+                  hasViewedStory 
+                    ? 'bg-gray-400' 
+                    : 'bg-gradient-to-tr from-yellow-400 via-red-500 to-purple-500'
+                }`}
+              >
                 <div className="w-full h-full rounded-full bg-white p-0.5">
                   <div className="w-full h-full rounded-full overflow-hidden">
                     <img src="/temp.jpg" alt="Profile" className="w-full h-full object-cover" />
                   </div>
                 </div>
-              </div>
+              </button>
               <div className="flex-1">
                 <div className="flex items-center gap-2">
                   <h1 className="text-lg font-light">everyday.tina.zone</h1>
@@ -510,29 +1038,113 @@ export default function Home() {
         {/* Navigation Tabs */}
         <div className="flex justify-center mb-4">
           <div className="flex">
-            <button className="flex items-center gap-2 px-4 py-3 text-sm font-medium text-gray-900 border-b-2 border-black">
+            <button 
+              onClick={() => setActiveTab('posts')}
+              className={`flex items-center gap-2 px-4 py-3 text-sm font-medium border-b-2 ${
+                activeTab === 'posts' 
+                  ? 'text-gray-900 border-black' 
+                  : 'text-gray-500 border-transparent hover:text-gray-700'
+              }`}
+            >
               <GridIcon className="w-4 h-4" />
               <span className="hidden sm:inline">POSTS</span>
             </button>
-            <button className="flex items-center gap-2 px-4 py-3 text-sm font-medium text-gray-500 border-b-2 border-transparent">
+            <button 
+              onClick={() => setActiveTab('tagged')}
+              className={`flex items-center gap-2 px-4 py-3 text-sm font-medium border-b-2 ${
+                activeTab === 'tagged' 
+                  ? 'text-gray-900 border-black' 
+                  : 'text-gray-500 border-transparent hover:text-gray-700'
+              }`}
+            >
               <TaggedIcon className="w-4 h-4" />
               <span className="hidden sm:inline">TAGGED</span>
             </button>
           </div>
         </div>
 
-        {/* Posts Grid */}
-        <div className="grid grid-cols-3 gap-1 md:gap-1">
-          {posts.map((post, i) => (
-            <button
-              key={post.id}
-              onClick={() => openPost(post)}
-              className="aspect-square bg-gray-300 hover:opacity-90 transition-opacity overflow-hidden"
-            >
-              <img src={post.image} alt={`Post ${i + 1}`} className="w-full h-full object-cover" />
-            </button>
-          ))}
-        </div>
+        {/* Content Grid */}
+        {activeTab === 'posts' ? (
+          /* Posts Grid */
+          <div className="grid grid-cols-3 gap-1 md:gap-1">
+            {posts.map((post, i) => (
+              <button
+                key={post.id}
+                onClick={() => openPost(post)}
+                className="aspect-square bg-gray-300 hover:opacity-90 transition-opacity overflow-hidden"
+              >
+                <img src={post.image} alt={`Post ${i + 1}`} className="w-full h-full object-cover" />
+              </button>
+            ))}
+          </div>
+        ) : (
+          /* Tagged Photos Grid */
+          <div className="grid grid-cols-3 gap-1 md:gap-1">
+            {taggedPosts.length === 0 ? (
+              /* Post with Me Button */
+              <button
+                onClick={() => setIsTaggedModalOpen(true)}
+                className="aspect-square bg-gray-100 border-2 border-dashed border-gray-300 hover:border-gray-400 hover:bg-gray-50 transition-colors flex flex-col items-center justify-center text-gray-600 hover:text-gray-700"
+              >
+                <div className="text-2xl mb-2">+</div>
+                <div className="text-xs font-medium">Post with Me</div>
+              </button>
+            ) : (
+              <>
+                {/* Post with Me Button as first item */}
+                <button
+                  onClick={() => setIsTaggedModalOpen(true)}
+                  className="aspect-square bg-gray-100 border-2 border-dashed border-gray-300 hover:border-gray-400 hover:bg-gray-50 transition-colors flex flex-col items-center justify-center text-gray-600 hover:text-gray-700"
+                >
+                  <div className="text-2xl mb-2">+</div>
+                  <div className="text-xs font-medium">Post with Me</div>
+                </button>
+                {/* Tagged posts */}
+                {taggedPosts.map((taggedPost, i) => (
+                  <div
+                    key={taggedPost.id}
+                    className="aspect-square bg-gray-300 hover:opacity-90 transition-opacity overflow-hidden relative"
+                  >
+                    <img 
+                      src={taggedPost.generatedImage} 
+                      alt={`Tagged Post ${i + 1}`} 
+                      className="w-full h-full object-cover cursor-pointer" 
+                      onClick={() => openPost(taggedPost)}
+                    />
+                    {/* Clickable tag indicator */}
+                    <div className="absolute bottom-1 left-1">
+                      <button 
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          setShowGridTags(prev => ({
+                            ...prev,
+                            [taggedPost.id]: !prev[taggedPost.id]
+                          }));
+                        }}
+                        className="w-4 h-4 bg-gray-800 bg-opacity-70 rounded-full flex items-center justify-center cursor-pointer hover:bg-opacity-90 transition-opacity"
+                      >
+                        <svg className="w-2 h-2 text-white" fill="currentColor" viewBox="0 0 20 20">
+                          <path fillRule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clipRule="evenodd" />
+                        </svg>
+                      </button>
+                    </div>
+                    
+                    {/* Tag overlay for grid */}
+                    {showGridTags[taggedPost.id] && (
+                      <div className="absolute bottom-6 left-2">
+                        <div className="bg-gray-800 text-white px-2 py-1 rounded text-xs font-medium relative whitespace-nowrap">
+                          {taggedPost.tags[0].username}
+                          {/* Arrow pointing down */}
+                          <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-2 border-r-2 border-t-2 border-transparent border-t-gray-800"></div>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                ))}
+              </>
+            )}
+          </div>
+        )}
       </div>
 
       {/* Post Modals */}
@@ -553,6 +1165,20 @@ export default function Home() {
       <FollowingModal 
         isOpen={isFollowingModalOpen}
         onClose={() => setIsFollowingModalOpen(false)}
+      />
+      
+      {/* Tagged Post Modal */}
+      <TaggedPostModal 
+        isOpen={isTaggedModalOpen}
+        onClose={() => setIsTaggedModalOpen(false)}
+        onPostCreated={refreshTaggedPosts}
+      />
+      
+      {/* Story Viewer */}
+      <StoryViewer 
+        isOpen={isStoryViewerOpen}
+        onClose={() => setIsStoryViewerOpen(false)}
+        onStoryComplete={() => setHasViewedStory(true)}
       />
     </div>
   );
