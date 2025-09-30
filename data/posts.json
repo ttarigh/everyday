@@ -1,5 +1,47 @@
 {
   "posts": [
-
+    {
+      "date": "Sep 29",
+      "caption": "Coast-to-coast in 4 days! Jet lag is REAL but this view… worth it. ☕️🥑",
+      "image": "/generated-1759158718442.png",
+      "comments": [
+        {
+          "id": "omddezsnm",
+          "text": "#aselfieofapersontakenonseptember29th2025theyareinabrightlylitmodernkitchenwithstainlesssteelappliancesandalargewindowoverlookingacityscapethatsuggestsalocationfarfromnewyorkperhapssanfranciscoorseattletheyarewearingcomfortableslightlywrinkledtravelclothesadarkgreyhoodieleggingsandfuzzysockstheirhairisslightlymessyandpulledbackintoaloosebunrevealingdarkcirclesundertheireyessuggestingjetlagintheirhandtheyholdasteamingmugofcoffeeandahalfeatenavocadotoastsitsonthecounterbesidethemtheoverallexpressionistiredbutcontentwithahintofasmilethebackgroundshowsunpackedluggagenearthewindow #ai",
+          "isHashtag": true,
+          "createdAt": "2025-09-29T15:11:58.459Z"
+        }
+      ],
+      "daysSinceBaseline": 4,
+      "generatedPrompt": "A selfie of a person, taken on September 29th, 2025. They are in a brightly lit, modern kitchen with stainless steel appliances and a large window overlooking a cityscape that suggests a location far from New York, perhaps San Francisco or Seattle. They are wearing comfortable, slightly wrinkled travel clothes – a dark grey hoodie, leggings, and fuzzy socks. Their hair is slightly messy and pulled back into a loose bun, revealing dark circles under their eyes suggesting jet lag. In their hand, they hold a steaming mug of coffee, and a half-eaten avocado toast sits on the counter beside them. The overall expression is tired but content, with a hint of a smile. The background shows unpacked luggage near the window.",
+      "id": 3,
+      "createdAt": "2025-09-29T15:11:58.465Z"
+    },
+    {
+      "date": "Sep 29",
+      "caption": "Lost in translation (and jet lag!) at Fushimi Inari. ⛩️",
+      "image": "/generated-1759155058989.png",
+      "comments": [
+        {
+          "id": "6uhutanmz",
+          "text": "#aselfietakeninkyotojapanonseptember29th2025thesubjectisstandinginfrontofavibrantredtoriigateatfushimiinarishrinejetlagissubtlyvisibleslightlytiredeyesbutenergizedbythenewlocationtheyarewearingcomfortablebutstylishtravelclothesperhapslinenpantsandalightweightbreathableshirtwithasmallcolorfulbackpackslungoveroneshouldertheirhairisslightlytousledatestamenttothelongflightandearlymorningtheyareholdingasmallpaperfortuneomikujiinonehandaslightlypuzzledbuthappyexpressionontheirfaceastheytrytodecipheritthebackgroundisslightlyblurredtoemphasizethesubjectandthevibrantgatethelightingissoftmorninglighthighlightingtheredsandorangesoftheshrine #ai",
+          "isHashtag": true,
+          "createdAt": "2025-09-29T14:10:59.003Z"
+        }
+      ],
+      "daysSinceBaseline": 4,
+      "generatedPrompt": "A selfie taken in Kyoto, Japan, on September 29th, 2025. The subject is standing in front of a vibrant red torii gate at Fushimi Inari Shrine. Jet lag is subtly visible: slightly tired eyes, but energized by the new location. They are wearing comfortable but stylish travel clothes – perhaps linen pants and a lightweight, breathable shirt with a small, colorful backpack slung over one shoulder. Their hair is slightly tousled, a testament to the long flight and early morning. They are holding a small paper fortune (omikuji) in one hand, a slightly puzzled but happy expression on their face as they try to decipher it. The background is slightly blurred to emphasize the subject and the vibrant gate. The lighting is soft morning light, highlighting the reds and oranges of the shrine.",
+      "id": 2,
+      "createdAt": "2025-09-29T14:10:59.007Z"
+    },
+    {
+      "id": 1,
+      "date": "Sep 25",
+      "caption": "original picture of me:) can't wait to share my selfies everyday with you!",
+      "image": "/temp.jpg",
+      "comments": [],
+      "createdAt": "2024-09-26T00:00:00.000Z",
+      "isOriginal": true
+    }
   ]
 }
