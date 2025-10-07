@@ -1,9 +1,9 @@
 name: Daily Selfie Post
 
 on:
-  schedule:
-    # Runs daily at 5:00 PM UTC (12:00 PM EST/1:00 PM EDT)
-    - cron: '0 17 * * *'
+  # schedule:
+  #   # Runs daily at 5:00 PM UTC (12:00 PM EST/1:00 PM EDT)
+  #   - cron: '0 17 * * *'
   workflow_dispatch: # Allows manual triggering for testing
 
 jobs:
