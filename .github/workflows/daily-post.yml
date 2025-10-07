@@ -1,9 +1,9 @@
 name: Daily Selfie Post
 
 on:
-  # schedule:
-  #   # Runs daily at 5:00 PM UTC (12:00 PM EST/1:00 PM EDT)
-  #   - cron: '0 17 * * *'
+  schedule:
+    # Runs daily at 5:00 PM UTC (12:00 PM EST/1:00 PM EDT)
+    - cron: '0 17 * * *'
   workflow_dispatch: # Allows manual triggering for testing
 
 jobs:
@@ -27,7 +27,7 @@ jobs:
         response=$(curl -s -w "%{http_code}" -X POST \
           -H "Content-Type: application/json" \
           -H "Authorization: Bearer ${{ secrets.AUTOMATION_TOKEN }}" \
-          ${{ secrets.PRODUCTION_URL }}/api/create-daily-post \
+          https://everyday-tina-zone.vercel.app/api/create-daily-post \
           -d '{}')
         
         http_code=${response: -3}
