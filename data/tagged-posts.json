@@ -1,5 +1,30 @@
 {
   "taggedPosts": [
-
+    {
+      "id": "tagged-1764544341378",
+      "userInstagram": "bunnyshadow",
+      "userSelfie": "/tagged/user-selfies/bunnyshadow-1764544341378.jpg",
+      "generatedImage": "/tagged/generated/tagged-1764544341378.png",
+      "userPrompt": "we go to mcdonalds together",
+      "expandedPrompt": "Put these two people in a brightly lit McDonald's booth, one girl with vibrant pink hair and multiple ear piercings is playfully holding a large McFlurry with Oreo pieces towards the camera, her eyes wide with excitement. The other girl, with long brown hair and oversized glasses, is leaning in close, pretending to take a large bite out of a cheeseburger, her face scrunched up in mock anticipation. Crinkle-cut fries and a red and yellow patterned drink cup are scattered on the table between them. Soft window light streams in from behind, creating lens flare. Focus on the McFlurry and cheeseburger being prominently displayed.",
+      "caption": "McDs with my bestie! 🍟🍦🍔 #mcdonalds #bestfriends #cheatday #foodie #instafood",
+      "date": "Nov 30",
+      "comments": [
+        {
+          "id": "s35val7ii",
+          "text": "#abrightlylitmcdonaldsboothonegirlwithvibrantpinkhairandmultipleearpiercingsisplayfullyholdingalargemcflurrywithoreopiecestowardsthecamerahereyeswidewithexcitementtheothergirlwithlongbrownhairandoversizedglassesisleaninginclosepretendingtotakealargebiteoutofacheeseburgerherfacescrunchedupinmockanticipationcrinklecutfriesandaredandyellowpatterneddrinkcuparescatteredonthetablebetweenthemsoftwindowlightstreamsinfrombehindcreatinglensflarefocusonthemcflurryandcheeseburgerbeingprominentlydisplayed #collab",
+          "isHashtag": true,
+          "createdAt": "2025-11-30T23:12:21.423Z"
+        }
+      ],
+      "tags": [
+        {
+          "username": "everyday.tina.zone",
+          "x": 45,
+          "y": 67
+        }
+      ],
+      "createdAt": "2025-11-30T23:12:21.423Z"
+    }
   ]
 }
