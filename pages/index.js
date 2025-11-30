@@ -246,6 +246,42 @@ const StoryViewer = ({ isOpen, onClose, onStoryComplete }) => {
   );
 };
 
+// Status Banner Component
+const StatusBanner = ({ status, message, onClose }) => {
+  if (!status) return null;
+  
+  const bgColor = status === 'creating' ? 'bg-blue-500' : 
+                  status === 'polling' ? 'bg-yellow-500' : 
+                  status === 'success' ? 'bg-green-500' : 'bg-gray-500';
+  
+  return (
+    <div className={`fixed top-0 left-0 right-0 z-50 ${bgColor} text-white px-4 py-3 shadow-lg`}>
+      <div className="max-w-4xl mx-auto flex items-center justify-between">
+        <div className="flex items-center gap-3">
+          {status === 'creating' && (
+            <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div>
+          )}
+          {status === 'polling' && (
+            <div className="animate-pulse">⏳</div>
+          )}
+          {status === 'success' && (
+            <div>✨</div>
+          )}
+          <span className="font-medium">{message}</span>
+        </div>
+        {onClose && status !== 'creating' && (
+          <button 
+            onClick={onClose}
+            className="text-white hover:text-gray-200"
+          >
+            <XIcon className="w-5 h-5" />
+          </button>
+        )}
+      </div>
+    </div>
+  );
+};
+
 // Tagged Post Modal Component
 const TaggedPostModal = ({ isOpen, onClose, onPostCreated }) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -300,18 +336,9 @@ const TaggedPostModal = ({ isOpen, onClose, onPostCreated }) => {
         // Close modal
         onClose();
         
-        // Show success with refresh prompt
-        if (result.needsRefresh) {
-          const shouldRefresh = confirm(
-            '✨ Your collaborative post has been created! ' +
-            'The page needs to refresh to show it. Refresh now?'
-          );
-          if (shouldRefresh) {
-            window.location.reload();
-          }
-        } else {
-          if (onPostCreated) onPostCreated();
-          alert('Your collaborative post has been created! 🎉');
+        // Notify parent to start polling
+        if (onPostCreated) {
+          onPostCreated(result.taggedPost.id);
         }
       } else {
         const error = await response.json();
@@ -542,9 +569,9 @@ const PostModal = ({ post, isOpen, onClose, onNext, onPrev }) => {
       </button>
 
       {/* Modal content */}
-      <div className="flex max-w-7xl max-h-[90vh] bg-white">
-        {/* Image area - square */}
-        <div className="w-[800px] h-[800px] bg-gray-300 flex items-center justify-center flex-shrink-0 overflow-hidden relative">
+      <div className="flex max-w-7xl max-h-[90vh] bg-white overflow-hidden">
+        {/* Image area - square, matches sidebar height */}
+        <div className="aspect-square max-h-[90vh] bg-gray-300 flex items-center justify-center flex-shrink-0 overflow-hidden relative">
           <img src={post.generatedImage || post.image} alt="Post" className="w-full h-full object-cover" />
           
           {/* Tagged indicator for tagged posts */}
@@ -578,7 +605,7 @@ const PostModal = ({ post, isOpen, onClose, onNext, onPrev }) => {
         </div>
 
         {/* Sidebar */}
-        <div className="w-96 p-6 border-l border-gray-200 flex flex-col">
+        <div className="w-96 max-h-[90vh] p-6 border-l border-gray-200 flex flex-col overflow-y-auto">
           {/* Profile header */}
           <div className="flex items-center gap-3 mb-4">
             {post.userInstagram ? (
@@ -802,6 +829,8 @@ export default function Home() {
   const [activeTab, setActiveTab] = useState('posts');
   const [isTaggedModalOpen, setIsTaggedModalOpen] = useState(false);
   const [showGridTags, setShowGridTags] = useState({});
+  const [postCreationStatus, setPostCreationStatus] = useState(null);
+  const [pollingPostId, setPollingPostId] = useState(null);
 
   // Track site visits
   useEffect(() => {
@@ -891,6 +920,58 @@ export default function Home() {
     loadTaggedPosts();
   }, []);
 
+  // Poll for new tagged post after creation
+  useEffect(() => {
+    if (!pollingPostId) return;
+
+    let pollCount = 0;
+    const maxPolls = 40; // 40 polls * 3 seconds = 2 minutes max
+    
+    setPostCreationStatus('polling');
+    
+    const pollInterval = setInterval(async () => {
+      try {
+        const response = await fetch('/api/tagged-posts');
+        if (response.ok) {
+          const data = await response.json();
+          const foundPost = data.taggedPosts.find(post => post.id === pollingPostId);
+          
+          if (foundPost) {
+            // Post found! Update UI
+            setTaggedPosts(data.taggedPosts);
+            setPostCreationStatus('success');
+            setPollingPostId(null);
+            clearInterval(pollInterval);
+            
+            // Auto-close success message after 5 seconds
+            setTimeout(() => {
+              setPostCreationStatus(null);
+            }, 5000);
+            
+            return;
+          }
+        }
+        
+        pollCount++;
+        if (pollCount >= maxPolls) {
+          // Timeout - post is still deploying
+          setPostCreationStatus('timeout');
+          setPollingPostId(null);
+          clearInterval(pollInterval);
+          
+          // Auto-close timeout message after 10 seconds
+          setTimeout(() => {
+            setPostCreationStatus(null);
+          }, 10000);
+        }
+      } catch (error) {
+        console.error('Error polling for post:', error);
+      }
+    }, 3000); // Poll every 3 seconds
+
+    return () => clearInterval(pollInterval);
+  }, [pollingPostId]);
+
   const openPost = (post) => {
     setSelectedPost(post);
     setIsModalOpen(true);
@@ -917,22 +998,42 @@ export default function Home() {
     }
   };
 
-  const refreshTaggedPosts = async () => {
-    try {
-      const response = await fetch('/api/tagged-posts');
-      if (response.ok) {
-        const data = await response.json();
-        setTaggedPosts(data.taggedPosts || []);
-      }
-    } catch (error) {
-      console.error('Error refreshing tagged posts:', error);
+  const handlePostCreated = (postId) => {
+    // Start showing the creation status
+    setPostCreationStatus('creating');
+    
+    // After a brief moment, start polling
+    setTimeout(() => {
+      setPollingPostId(postId);
+    }, 2000);
+  };
+
+  const getStatusMessage = () => {
+    switch (postCreationStatus) {
+      case 'creating':
+        return 'Creating your collaborative post...';
+      case 'polling':
+        return 'Post created! Waiting for deployment... (this usually takes 1-2 minutes)';
+      case 'success':
+        return 'Your post is ready! 🎉 Check it out in the Tagged tab!';
+      case 'timeout':
+        return 'Your post is still being deployed. Check back in a few minutes or refresh the page!';
+      default:
+        return '';
     }
   };
 
   return (
     <div className="min-h-screen bg-white">
+      {/* Status Banner */}
+      <StatusBanner 
+        status={postCreationStatus}
+        message={getStatusMessage()}
+        onClose={() => setPostCreationStatus(null)}
+      />
+      
       {/* Main container */}
-      <div className="max-w-4xl mx-auto px-4 py-8 md:px-8">
+      <div className={`max-w-4xl mx-auto px-4 py-8 md:px-8 ${postCreationStatus ? 'pt-20' : ''}`}>
         
         {/* Profile Header */}
         <div className="mb-8">
@@ -1182,7 +1283,7 @@ export default function Home() {
       <TaggedPostModal 
         isOpen={isTaggedModalOpen}
         onClose={() => setIsTaggedModalOpen(false)}
-        onPostCreated={refreshTaggedPosts}
+        onPostCreated={handlePostCreated}
       />
       
       {/* Story Viewer */}
