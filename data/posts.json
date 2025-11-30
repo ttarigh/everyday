@@ -1,6 +1,23 @@
 {
   "posts": [
     {
+      "date": "Nov 30",
+      "caption": "** Crisp morning walks and cozy sweaters. Embracing these late autumn days! ☕🍂 #sweaterweather #autumnvibes #dailywalk #happy",
+      "image": "/generated-1764544264312.png",
+      "comments": [
+        {
+          "id": "m4e8nbzch",
+          "text": "#arealisticportraitofapersonsassumedgenderandethnicitylate20searly30soutdoorsinlatenovemberearlydecember2025thepersoniswearingaslightlyworncomfortablelookingcableknitsweaterinaneutralcoloranddarkwashjeanstheyareholdingareusablecoffeecupandsmilinggentlyatsomethingjustoutofframethelightingissoftslightlyovercastwinterlighttherearesubtlesignsofagingveryfaintsmilelinesdeepeningslightlyaroundtheeyesatouchmoredefinitionunderthecheekbonesandslightlylessshinetotheskinthehairisstyledsimilarlytotheoriginalphotoassumearelativelylowmaintenancestylebutperhapsashadelessvibrantwithafewstraystrandstheoverallimpressionisnaturalandsubtlyagedemphasisshouldbeonrealisticskintextureandlightingwithnodramaticchangesthebackgroundisablurredcityparkwithbaretreescaptioncrispmorningwalksandcozysweatersembracingtheselateautumndayssweaterweatherautumnvibesdailywalkhappy #ai",
+          "isHashtag": true,
+          "createdAt": "2025-11-30T23:11:04.327Z"
+        }
+      ],
+      "daysSinceBaseline": 66,
+      "generatedPrompt": "** A realistic portrait of a [person's assumed gender and ethnicity], late 20s/early 30s, outdoors in late November/early December 2025. The person is wearing a slightly worn, comfortable-looking cable knit sweater in a neutral color, and dark wash jeans. They are holding a reusable coffee cup and smiling gently at something just out of frame. The lighting is soft, slightly overcast winter light. There are subtle signs of aging: very faint smile lines deepening slightly around the eyes, a touch more definition under the cheekbones, and slightly less shine to the skin. The hair is styled similarly to the original photo (assume a relatively low-maintenance style), but perhaps a shade less vibrant, with a few stray strands. The overall impression is natural and subtly aged. Emphasis should be on realistic skin texture and lighting, with no dramatic changes. The background is a blurred city park with bare trees.\n\n**CAPTION:** Crisp morning walks and cozy sweaters. Embracing these late autumn days! ☕🍂 #sweaterweather #autumnvibes #dailywalk #happy",
+      "id": 4,
+      "createdAt": "2025-11-30T23:11:04.327Z"
+    },
+    {
       "date": "Sep 29",
       "caption": "Coast-to-coast in 4 days! Jet lag is REAL but this view… worth it. ☕️🥑",
       "image": "/generated-1759158718442.png",
