@@ -4,7 +4,7 @@ import { Octokit } from '@octokit/rest';
 export class GitHubCommitter {
   constructor() {
     this.token = process.env.GITHUB_TOKEN;
-    this.owner = process.env.GITHUB_REPO_OWNER || 'rumitarighian'; // Update with your GitHub username
+    this.owner = process.env.GITHUB_REPO_OWNER || 'ttarigh';
     this.repo = process.env.GITHUB_REPO_NAME || 'everyday';
     this.branch = 'main';
     
