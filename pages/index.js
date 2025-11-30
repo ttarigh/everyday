@@ -246,37 +246,42 @@ const StoryViewer = ({ isOpen, onClose, onStoryComplete }) => {
   );
 };
 
-// Status Banner Component
-const StatusBanner = ({ status, message, onClose }) => {
-  if (!status) return null;
+// Status Square Component for Grid
+const StatusSquare = ({ status }) => {
+  if (!status || status === 'success') return null;
   
   const bgColor = status === 'creating' ? 'bg-blue-500' : 
                   status === 'polling' ? 'bg-yellow-500' : 
-                  status === 'success' ? 'bg-green-500' : 'bg-gray-500';
+                  'bg-gray-500';
+  
+  const getMessage = () => {
+    switch (status) {
+      case 'creating':
+        return 'creating tagged post';
+      case 'polling':
+        return 'waiting for deployment\n(1-2 minutes)';
+      case 'timeout':
+        return 'taking longer than expected\ncheck back in a few minutes';
+      default:
+        return '';
+    }
+  };
   
   return (
-    <div className={`fixed top-0 left-0 right-0 z-50 ${bgColor} text-white px-4 py-3 shadow-lg`}>
-      <div className="max-w-4xl mx-auto flex items-center justify-between">
-        <div className="flex items-center gap-3">
-          {status === 'creating' && (
-            <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div>
-          )}
-          {status === 'polling' && (
-            <div className="animate-pulse">⏳</div>
-          )}
-          {status === 'success' && (
-            <div>✨</div>
-          )}
-          <span className="font-medium">{message}</span>
-        </div>
-        {onClose && status !== 'creating' && (
-          <button 
-            onClick={onClose}
-            className="text-white hover:text-gray-200"
-          >
-            <XIcon className="w-5 h-5" />
-          </button>
+    <div className={`aspect-square ${bgColor} flex items-center justify-center p-4`}>
+      <div className="text-center">
+        {status === 'creating' && (
+          <div className="animate-spin rounded-full h-8 w-8 border-2 border-white border-t-transparent mx-auto mb-3"></div>
         )}
+        {status === 'polling' && (
+          <div className="text-2xl mb-3 animate-pulse">⏳</div>
+        )}
+        {status === 'timeout' && (
+          <div className="text-2xl mb-3">⏱️</div>
+        )}
+        <p className="text-white text-xs font-medium whitespace-pre-line">
+          {getMessage()}
+        </p>
       </div>
     </div>
   );
@@ -416,9 +421,13 @@ const TaggedPostModal = ({ isOpen, onClose, onPostCreated }) => {
               onChange={(e) => setFormData(prev => ({ ...prev, userPrompt: e.target.value }))}
               placeholder="prompt (optional)"
               rows={3}
+              maxLength={50}
               className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none"
               disabled={isSubmitting}
             />
+            <div className="text-xs text-gray-500 text-right mt-1">
+              {formData.userPrompt.length}/50
+            </div>
           </div>
 
           {/* Submit Button */}
@@ -937,16 +946,14 @@ export default function Home() {
           const foundPost = data.taggedPosts.find(post => post.id === pollingPostId);
           
           if (foundPost) {
-            // Post found! Update UI
+            // Post found! Refresh the page to show it
             setTaggedPosts(data.taggedPosts);
-            setPostCreationStatus('success');
             setPollingPostId(null);
+            setPostCreationStatus(null);
             clearInterval(pollInterval);
             
-            // Auto-close success message after 5 seconds
-            setTimeout(() => {
-              setPostCreationStatus(null);
-            }, 5000);
+            // Switch to tagged tab if not already there
+            setActiveTab('tagged');
             
             return;
           }
@@ -959,10 +966,7 @@ export default function Home() {
           setPollingPostId(null);
           clearInterval(pollInterval);
           
-          // Auto-close timeout message after 10 seconds
-          setTimeout(() => {
-            setPostCreationStatus(null);
-          }, 10000);
+          // Keep timeout message visible - user can manually close/refresh
         }
       } catch (error) {
         console.error('Error polling for post:', error);
@@ -999,6 +1003,9 @@ export default function Home() {
   };
 
   const handlePostCreated = (postId) => {
+    // Switch to tagged tab to show the status square
+    setActiveTab('tagged');
+    
     // Start showing the creation status
     setPostCreationStatus('creating');
     
@@ -1008,32 +1015,10 @@ export default function Home() {
     }, 2000);
   };
 
-  const getStatusMessage = () => {
-    switch (postCreationStatus) {
-      case 'creating':
-        return 'Creating your collaborative post...';
-      case 'polling':
-        return 'Post created! Waiting for deployment... (this usually takes 1-2 minutes)';
-      case 'success':
-        return 'Your post is ready! 🎉 Check it out in the Tagged tab!';
-      case 'timeout':
-        return 'Your post is still being deployed. Check back in a few minutes or refresh the page!';
-      default:
-        return '';
-    }
-  };
-
   return (
     <div className="min-h-screen bg-white">
-      {/* Status Banner */}
-      <StatusBanner 
-        status={postCreationStatus}
-        message={getStatusMessage()}
-        onClose={() => setPostCreationStatus(null)}
-      />
-      
       {/* Main container */}
-      <div className={`max-w-4xl mx-auto px-4 py-8 md:px-8 ${postCreationStatus ? 'pt-20' : ''}`}>
+      <div className="max-w-4xl mx-auto px-4 py-8 md:px-8">
         
         {/* Profile Header */}
         <div className="mb-8">
@@ -1192,8 +1177,13 @@ export default function Home() {
         ) : (
           /* Tagged Photos Grid */
           <div className="grid grid-cols-3 gap-1 md:gap-1">
-            {taggedPosts.length === 0 ? (
-              /* Post with Me Button */
+            {/* Status Square - shows when post is being created */}
+            {postCreationStatus && (
+              <StatusSquare status={postCreationStatus} />
+            )}
+            
+            {taggedPosts.length === 0 && !postCreationStatus ? (
+              /* Post with Me Button - only show if no status */
               <button
                 onClick={() => setIsTaggedModalOpen(true)}
                 className="aspect-square bg-gray-100 border-2 border-dashed border-gray-300 hover:border-gray-400 hover:bg-gray-50 transition-colors flex flex-col items-center justify-center text-gray-600 hover:text-gray-700"
@@ -1203,54 +1193,28 @@ export default function Home() {
               </button>
             ) : (
               <>
-                {/* Post with Me Button as first item */}
-                <button
-                  onClick={() => setIsTaggedModalOpen(true)}
-                  className="aspect-square bg-gray-100 border-2 border-dashed border-gray-300 hover:border-gray-400 hover:bg-gray-50 transition-colors flex flex-col items-center justify-center text-gray-600 hover:text-gray-700"
-                >
-                  <div className="text-2xl mb-2">+</div>
-                  <div className="text-xs font-medium">Post with Me</div>
-                </button>
+                {/* Post with Me Button as first item (after status if present) */}
+                {!postCreationStatus && (
+                  <button
+                    onClick={() => setIsTaggedModalOpen(true)}
+                    className="aspect-square bg-gray-100 border-2 border-dashed border-gray-300 hover:border-gray-400 hover:bg-gray-50 transition-colors flex flex-col items-center justify-center text-gray-600 hover:text-gray-700"
+                  >
+                    <div className="text-2xl mb-2">+</div>
+                    <div className="text-xs font-medium">Post with Me</div>
+                  </button>
+                )}
                 {/* Tagged posts */}
                 {taggedPosts.map((taggedPost, i) => (
                   <div
                     key={taggedPost.id}
-                    className="aspect-square bg-gray-300 hover:opacity-90 transition-opacity overflow-hidden relative"
+                    className="aspect-square bg-gray-300 hover:opacity-90 transition-opacity overflow-hidden relative cursor-pointer"
+                    onClick={() => openPost(taggedPost)}
                   >
                     <img 
                       src={taggedPost.generatedImage} 
                       alt={`Tagged Post ${i + 1}`} 
-                      className="w-full h-full object-cover cursor-pointer" 
-                      onClick={() => openPost(taggedPost)}
+                      className="w-full h-full object-cover" 
                     />
-                    {/* Clickable tag indicator */}
-                    <div className="absolute bottom-1 left-1">
-                      <button 
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          setShowGridTags(prev => ({
-                            ...prev,
-                            [taggedPost.id]: !prev[taggedPost.id]
-                          }));
-                        }}
-                        className="w-4 h-4 bg-gray-800 bg-opacity-70 rounded-full flex items-center justify-center cursor-pointer hover:bg-opacity-90 transition-opacity"
-                      >
-                        <svg className="w-2 h-2 text-white" fill="currentColor" viewBox="0 0 20 20">
-                          <path fillRule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clipRule="evenodd" />
-                        </svg>
-                      </button>
-                    </div>
-                    
-                    {/* Tag overlay for grid */}
-                    {showGridTags[taggedPost.id] && (
-                      <div className="absolute bottom-6 left-2">
-                        <div className="bg-gray-800 text-white px-2 py-1 rounded text-xs font-medium relative whitespace-nowrap">
-                          {taggedPost.tags[0].username}
-                          {/* Arrow pointing down */}
-                          <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-2 border-r-2 border-t-2 border-transparent border-t-gray-800"></div>
-                        </div>
-                      </div>
-                    )}
                   </div>
                 ))}
               </>
