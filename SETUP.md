@@ -1,80 +1,192 @@
-# Daily Selfie Automation Setup
+# Setup Guide
 
-This document explains how to set up the daily selfie automation using GitHub Actions and Google's Gemini AI.
+This document explains how to set up and deploy your everyday selfie project.
 
-## Required GitHub Secrets
+## Architecture Overview
 
-You need to configure the following secrets in your GitHub repository:
+This project uses a **fully static, GitHub-based architecture**:
 
-### 1. GEMINI_API_KEY
-- Go to [Google AI Studio](https://makersuite.google.com/app/apikey)
-- Create a new API key for Gemini
-- Add this as a repository secret named `GEMINI_API_KEY`
+- **GitHub Actions** handles daily post generation (has filesystem access)
+- **Vercel** serves the static Next.js app (serverless, read-only)
+- **GitHub repository** acts as the database (JSON files + images)
+- **External services** for features that need persistence (visit counter)
 
-### 2. AUTOMATION_TOKEN
-- Generate a random secure token (you can use `openssl rand -hex 32`)
-- Add this as a repository secret named `AUTOMATION_TOKEN`
-- This is used to authenticate the GitHub Actions workflow with your API
+## Required Environment Variables
 
-## Setting up GitHub Secrets
+### For Vercel Deployment
 
-1. Go to your repository on GitHub
-2. Click on **Settings** tab
-3. In the left sidebar, click **Secrets and variables** → **Actions**
-4. Click **New repository secret**
-5. Add each secret with the exact names above
+Add these in your Vercel project settings:
 
-## Dependencies
+#### 1. GEMINI_API_KEY
+- Get from [Google AI Studio](https://makersuite.google.com/app/apikey)
+- Used for AI image and text generation
+- **Required** for both daily posts and tagged posts
 
-The system requires the `@google/genai` package for proper Gemini AI integration:
+#### 2. GITHUB_TOKEN
+- Generate a Personal Access Token with `repo` scope
+- Go to GitHub Settings → Developer settings → Personal access tokens → Tokens (classic)
+- Generate new token with `repo` permissions
+- Used for committing tagged posts from serverless functions
+- **Required** for tagged posts feature
 
-```bash
-npm install @google/genai
+#### 3. GITHUB_REPO_OWNER
+- Your GitHub username (e.g., `rumitarighian`)
+- Default is set in code but can be overridden
+
+#### 4. GITHUB_REPO_NAME
+- Your repository name (e.g., `everyday`)
+- Default is set in code but can be overridden
+
+### For GitHub Actions
+
+Add these as repository secrets (Settings → Secrets and variables → Actions):
+
+#### 1. GEMINI_API_KEY
+- Same as above
+- **Required** for daily post generation
+
+## How It Works
+
+### Daily Posts (Automated)
+
+```
+GitHub Actions (daily at 12pm EST)
+  ↓
+  Runs scripts/generate-daily-post.js
+  ↓
+  Calls Gemini API to generate prompt & image
+  ↓
+  Saves to filesystem (public/ and data/posts.json)
+  ↓
+  Git commit + push to main branch
+  ↓
+  Vercel auto-deploys updated site
 ```
 
-## How it Works
+**Key benefit**: GitHub Actions has full filesystem access, so generation happens there.
 
-1. **Daily Schedule**: GitHub Actions runs every day at 12:00 PM EST (5:00 PM UTC)
-2. **AI Generation**: 
-   - Gemini 2.5 Flash Lite creates an image prompt based on days since September 25, 2025
-   - Gemini 2.5 Flash Image Preview generates actual images using your original selfie
-3. **Post Creation**: New post is added with AI-generated caption and hashtags
-4. **Auto-commit**: Changes are automatically committed to the repository
+### Tagged Posts (User-Initiated)
+
+```
+User submits form on website
+  ↓
+  POST to /api/create-tagged-post
+  ↓
+  Serverless function:
+    - Generates collaborative image with Gemini
+    - Commits files via GitHub API (using GITHUB_TOKEN)
+    - Updates data/tagged-posts.json
+  ↓
+  GitHub commit triggers Vercel rebuild
+  ↓
+  User refreshes to see their post
+```
+
+**Key benefit**: Uses GitHub API to commit from serverless (no filesystem needed).
+
+### Visit Counter
+
+Uses free external service (countapi.xyz) for persistence across deployments.
 
 ## Manual Testing
 
-You can test the system manually:
+### Test Daily Post Generation Locally
 
 ```bash
-# Test without AI (uses placeholder)
-curl -X POST http://localhost:3000/api/test-daily-post
+# Set environment variable
+export GEMINI_API_KEY="your-key-here"
 
-# Test with full AI pipeline (requires API key)
-curl -X POST \
-  -H "Authorization: Bearer YOUR_AUTOMATION_TOKEN" \
-  http://localhost:3000/api/create-daily-post
+# Run the script
+node scripts/generate-daily-post.js
 ```
+
+This will generate a new post and save it to your local repository.
+
+### Test Daily Post via GitHub Actions
+
+1. Go to Actions tab in your GitHub repository
+2. Select "Daily Selfie Post" workflow
+3. Click "Run workflow" → "Run workflow"
+4. Watch the logs to see if it succeeds
+
+### Test Tagged Posts
+
+```bash
+# Start dev server
+npm run dev
+
+# Visit http://localhost:3000
+# Click on "TAGGED" tab
+# Click "Post with Me" button
+# Fill out form and submit
+
+# Note: Requires GITHUB_TOKEN and GEMINI_API_KEY in .env.local
+```
+
+## Deployment Checklist
+
+- [ ] Create Vercel project linked to your GitHub repo
+- [ ] Add GEMINI_API_KEY to Vercel environment variables
+- [ ] Add GITHUB_TOKEN to Vercel environment variables  
+- [ ] Add GEMINI_API_KEY to GitHub repository secrets
+- [ ] Verify daily workflow runs (check Actions tab)
+- [ ] Test tagged post creation works
+- [ ] Visit counter increments properly
 
 ## File Structure
 
-- `/.github/workflows/daily-post.yml` - GitHub Actions workflow
-- `/data/posts.json` - Posts data storage
-- `/pages/api/posts.js` - Posts CRUD API
-- `/pages/api/generate-prompt.js` - Gemini prompt generation
-- `/pages/api/generate-image.js` - Gemini image generation
-- `/pages/api/create-daily-post.js` - Main automation endpoint
-- `/pages/api/test-daily-post.js` - Testing endpoint
+```
+/
+├── scripts/
+│   └── generate-daily-post.js    # Daily generation script (runs in Actions)
+├── utils/
+│   └── github.js                  # GitHub API helper for commits
+├── pages/
+│   ├── index.js                   # Main Instagram UI
+│   └── api/
+│       ├── posts.js               # GET posts data
+│       ├── tagged-posts.js        # GET tagged posts data
+│       ├── create-tagged-post.js  # POST create tagged post
+│       └── visits.js              # Visit counter (external service)
+├── data/
+│   ├── posts.json                 # Posts database (committed by Actions)
+│   └── tagged-posts.json          # Tagged posts database (committed by API)
+├── public/
+│   ├── temp.jpg                   # Original baseline selfie
+│   ├── generated-*.png            # Daily generated images
+│   └── tagged/
+│       ├── user-selfies/          # Uploaded user selfies
+│       └── generated/             # Generated collaborative images
+└── .github/workflows/
+    └── daily-post.yml             # GitHub Actions workflow
+```
 
 ## Troubleshooting
 
-- Check GitHub Actions logs if posts aren't being created
-- Verify API keys are correctly set in repository secrets
-- Ensure the workflow has write permissions to the repository
-- Check that the Next.js app builds and starts successfully
+### Daily posts not generating
+- Check GitHub Actions logs for errors
+- Verify GEMINI_API_KEY is set in repository secrets
+- Check if the workflow has write permissions
+
+### Tagged posts failing
+- Verify GITHUB_TOKEN has `repo` scope
+- Check Vercel function logs
+- Ensure GEMINI_API_KEY is set in Vercel
+
+### Visit counter not working
+- countapi.xyz might be down (try different service)
+- Check browser console for errors
+- Falls back to 0 if service unavailable
+
+### Images not appearing after deployment
+- Vercel auto-deploys when GitHub receives commits
+- Wait 1-2 minutes for build to complete
+- Check Vercel deployment logs
 
 ## Future Enhancements
 
-- Email notifications on failure
-- Better image generation (when Gemini supports it)
-- Analytics and metrics
-- Backup storage options
+- Email notifications on workflow failure
+- More sophisticated aging algorithm
+- Analytics dashboard
+- Backup to cloud storage (S3, Cloudflare R2, etc.)
+- Social media auto-posting

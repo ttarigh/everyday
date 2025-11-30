@@ -1,50 +1,41 @@
-// Simple in-memory storage for visits (resets on deployment)
-// In production, you'd want to use a database like Vercel KV, Supabase, or similar
-let visitCount = 0;
+// Visit counter using free external service (countapi.xyz)
+// This persists across deployments
 
-// For production, we'll use a simple counter that resets on deployment
-// This is a temporary solution - for persistence, use a database
-function getVisitCount() {
+const NAMESPACE = 'everyday-tina-zone';
+const KEY = 'site-visits';
+const COUNTAPI_URL = `https://api.countapi.xyz`;
+
+export default async function handler(req, res) {
   try {
-    // Try to read from environment variable for initial count
-    const envCount = process.env.INITIAL_VISIT_COUNT;
-    if (envCount && visitCount === 0) {
-      visitCount = parseInt(envCount, 10) || 0;
-    }
-    return visitCount;
-  } catch (error) {
-    console.error('Error reading visit count:', error);
-    return 0;
-  }
-}
-
-function setVisitCount(count) {
-  try {
-    visitCount = count;
-    return true;
-  } catch (error) {
-    console.error('Error setting visit count:', error);
-    return false;
-  }
-}
-
-export default function handler(req, res) {
-  if (req.method === 'POST') {
-    // Increment visit count
-    const currentCount = getVisitCount();
-    const newCount = currentCount + 1;
-    
-    if (setVisitCount(newCount)) {
-      res.status(200).json({ visits: newCount });
+    if (req.method === 'POST') {
+      // Increment visit count
+      const response = await fetch(`${COUNTAPI_URL}/hit/${NAMESPACE}/${KEY}`);
+      
+      if (!response.ok) {
+        throw new Error('Failed to increment counter');
+      }
+      
+      const data = await response.json();
+      res.status(200).json({ visits: data.value });
+      
+    } else if (req.method === 'GET') {
+      // Get current visit count
+      const response = await fetch(`${COUNTAPI_URL}/get/${NAMESPACE}/${KEY}`);
+      
+      if (!response.ok) {
+        throw new Error('Failed to get counter');
+      }
+      
+      const data = await response.json();
+      res.status(200).json({ visits: data.value });
+      
     } else {
-      res.status(500).json({ error: 'Failed to update visit count' });
+      res.setHeader('Allow', ['GET', 'POST']);
+      res.status(405).end(`Method ${req.method} Not Allowed`);
     }
-  } else if (req.method === 'GET') {
-    // Return current visit count
-    const count = getVisitCount();
-    res.status(200).json({ visits: count });
-  } else {
-    res.setHeader('Allow', ['GET', 'POST']);
-    res.status(405).end(`Method ${req.method} Not Allowed`);
+  } catch (error) {
+    console.error('Error with visit counter:', error);
+    // Return a fallback value instead of error
+    res.status(200).json({ visits: 0 });
   }
 }

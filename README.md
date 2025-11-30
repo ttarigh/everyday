@@ -1,40 +1,179 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/pages/api-reference/create-next-app).
+# everyday.tina.zone 📸
 
-## Getting Started
+An AI-powered Instagram clone that posts a progressively aging selfie every day, showcasing world model capabilities.
 
-First, run the development server:
+## 🎯 Concept
+
+This project demonstrates AI's ability to reason about temporal progression by generating realistic daily selfies that show gradual aging from a baseline photo. Each day, the AI generates an image showing "X days older" with realistic subtle changes, seasonal variations, and daily life scenarios.
+
+## ✨ Features
+
+- **Daily Automated Posts**: GitHub Actions generates a new aged selfie every day at noon
+- **Tagged Collaborations**: Users can create collaborative posts with their own selfies
+- **Visit Counter**: Tracks site visitors using external service
+- **Story Viewer**: Instagram-style stories with real photos
+- **Beautiful UI**: Pixel-perfect Instagram clone interface
+
+## 🏗️ Architecture
+
+**Fully static, GitHub-based:**
+- GitHub Actions = automation + generation (has filesystem)
+- Vercel = hosting (serverless, read-only)
+- GitHub repo = database (JSON + images)
+- Free external services = persistence where needed
+
+This architecture is:
+- ✅ Free to run
+- ✅ No database costs
+- ✅ Survives serverless limitations
+- ✅ Simple to understand
+- ✅ Git history = audit log
+
+## 🚀 Quick Start
+
+### 1. Clone and Install
+
+```bash
+git clone https://github.com/yourusername/everyday.git
+cd everyday
+npm install
+```
+
+### 2. Set Up Environment Variables
+
+Create `.env.local`:
+
+```env
+GEMINI_API_KEY=your-gemini-api-key
+GITHUB_TOKEN=your-github-token
+GITHUB_REPO_OWNER=yourusername
+GITHUB_REPO_NAME=everyday
+```
+
+### 3. Run Development Server
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000)
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+### 4. Deploy to Vercel
 
-[API routes](https://nextjs.org/docs/pages/building-your-application/routing/api-routes) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+```bash
+# Install Vercel CLI
+npm i -g vercel
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/pages/building-your-application/routing/api-routes) instead of React pages.
+# Deploy
+vercel
 
-This project uses [`next/font`](https://nextjs.org/docs/pages/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+# Add environment variables in Vercel dashboard
+```
 
-## Learn More
+### 5. Set Up GitHub Actions
 
-To learn more about Next.js, take a look at the following resources:
+Add `GEMINI_API_KEY` to repository secrets (Settings → Secrets and variables → Actions)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn-pages-router) - an interactive Next.js tutorial.
+## 📖 Documentation
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- [SETUP.md](./SETUP.md) - Detailed setup and configuration guide
+- [.github/workflows/daily-post.yml](./.github/workflows/daily-post.yml) - GitHub Actions workflow
 
-## Deploy on Vercel
+## 🛠️ Tech Stack
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- **Frontend**: Next.js 15, React 19, Tailwind CSS 4
+- **AI**: Google Gemini 2.5 Flash (text) + Gemini 2.5 Flash Image Preview (images)
+- **Hosting**: Vercel (serverless)
+- **Storage**: GitHub (files + images)
+- **Automation**: GitHub Actions
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/pages/building-your-application/deploying) for more details.
+## 📁 Project Structure
+
+```
+everyday/
+├── scripts/              # Generation scripts for GitHub Actions
+├── pages/               # Next.js pages and API routes
+├── data/                # JSON database files (committed)
+├── public/              # Static assets and generated images
+├── utils/               # Helper utilities (GitHub API, etc.)
+└── styles/              # Global styles
+```
+
+## 🎨 How It Works
+
+### Daily Posts
+
+1. GitHub Actions triggers daily at noon
+2. Script calculates days since baseline (Sep 25, 2025)
+3. Calls Gemini to generate aging prompt
+4. Calls Gemini to generate aged selfie image
+5. Saves image and updates `data/posts.json`
+6. Commits to GitHub
+7. Vercel auto-deploys
+
+### Tagged Posts
+
+1. User submits selfie + optional prompt
+2. API generates collaborative scene with Gemini
+3. Creates composite image with both people
+4. Commits via GitHub API
+5. Triggers Vercel rebuild
+6. User refreshes to see post
+
+## 🔧 Development
+
+### File Watching
+
+```bash
+npm run dev     # Start dev server with hot reload
+npm run build   # Build for production
+npm run start   # Start production server
+```
+
+### Manual Post Generation
+
+```bash
+# Generate a daily post manually
+export GEMINI_API_KEY=your-key
+node scripts/generate-daily-post.js
+```
+
+### Testing GitHub Actions Locally
+
+Use [act](https://github.com/nektos/act) to test GitHub Actions locally:
+
+```bash
+brew install act
+act -s GEMINI_API_KEY=your-key workflow_dispatch
+```
+
+## 🐛 Troubleshooting
+
+**Posts not generating?**
+- Check GitHub Actions logs
+- Verify GEMINI_API_KEY in secrets
+- Ensure workflow has write permissions
+
+**Tagged posts failing?**
+- Check GITHUB_TOKEN has `repo` scope
+- Verify GEMINI_API_KEY in Vercel
+- Check Vercel function logs
+
+**Visit counter not working?**
+- countapi.xyz might be down
+- Falls back to 0 gracefully
+- Consider alternative service
+
+## 📝 License
+
+MIT
+
+## 🙏 Credits
+
+- Built with [Next.js](https://nextjs.org)
+- AI powered by [Google Gemini](https://deepmind.google/technologies/gemini/)
+- Hosted on [Vercel](https://vercel.com)
+
+---
+
+Made with ☕ to showcase world model reasoning capabilities

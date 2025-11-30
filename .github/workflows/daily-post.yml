@@ -22,28 +22,13 @@ jobs:
         node-version: '18'
         cache: 'npm'
 
-    - name: Create daily post
-      run: |
-        response=$(curl -s -w "%{http_code}" -X POST \
-          -H "Content-Type: application/json" \
-          -H "Authorization: Bearer ${{ secrets.AUTOMATION_TOKEN }}" \
-          https://everyday-tina-zone.vercel.app/api/create-daily-post \
-          -d '{}')
-        
-        http_code=${response: -3}
-        body=${response%???}
-        
-        echo "HTTP Status: $http_code"
-        echo "Response: $body"
-        
-        if [ "$http_code" -ne 200 ]; then
-          echo "Failed to create daily post"
-          echo "$body" | jq .
-          exit 1
-        fi
-        
-        echo "Daily post created successfully!"
-        echo "$body" | jq .
+    - name: Install dependencies
+      run: npm ci
+
+    - name: Generate daily post
+      env:
+        GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+      run: node scripts/generate-daily-post.js
 
     - name: Commit and push changes
       run: |

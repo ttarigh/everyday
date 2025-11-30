@@ -297,11 +297,22 @@ const TaggedPostModal = ({ isOpen, onClose, onPostCreated }) => {
         setFormData({ instagramHandle: '', userPrompt: '', selfie: null });
         setPreviewUrl(null);
         
-        // Close modal and refresh data
+        // Close modal
         onClose();
-        if (onPostCreated) onPostCreated();
         
-        alert('Your collaborative post has been created! 🎉');
+        // Show success with refresh prompt
+        if (result.needsRefresh) {
+          const shouldRefresh = confirm(
+            '✨ Your collaborative post has been created! ' +
+            'The page needs to refresh to show it. Refresh now?'
+          );
+          if (shouldRefresh) {
+            window.location.reload();
+          }
+        } else {
+          if (onPostCreated) onPostCreated();
+          alert('Your collaborative post has been created! 🎉');
+        }
       } else {
         const error = await response.json();
         throw new Error(error.error || 'Failed to create post');
