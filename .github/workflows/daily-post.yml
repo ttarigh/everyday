@@ -9,6 +9,8 @@ on:
 jobs:
   create-daily-post:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write  # Allow workflow to push commits
     
     steps:
     - name: Checkout repository
