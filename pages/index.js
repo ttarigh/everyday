@@ -248,11 +248,22 @@ const StoryViewer = ({ isOpen, onClose, onStoryComplete }) => {
 
 // Status Square Component for Grid
 const StatusSquare = ({ status }) => {
-  if (!status || status === 'success') return null;
+  if (!status) return null;
   
-  const bgColor = status === 'creating' ? 'bg-blue-500' : 
-                  status === 'polling' ? 'bg-yellow-500' : 
-                  'bg-gray-500';
+  const getGradient = () => {
+    switch (status) {
+      case 'creating':
+        return 'bg-gradient-to-br from-blue-400 to-blue-600';
+      case 'polling':
+        return 'bg-gradient-to-br from-yellow-400 to-orange-500';
+      case 'success':
+        return 'bg-gradient-to-br from-green-400 to-emerald-600';
+      case 'timeout':
+        return 'bg-gradient-to-br from-gray-400 to-gray-600';
+      default:
+        return 'bg-gradient-to-br from-gray-400 to-gray-600';
+    }
+  };
   
   const getMessage = () => {
     switch (status) {
@@ -260,6 +271,8 @@ const StatusSquare = ({ status }) => {
         return 'creating tagged post';
       case 'polling':
         return 'waiting for deployment\n(1-2 minutes)';
+      case 'success':
+        return 'post created successfully';
       case 'timeout':
         return 'taking longer than expected\ncheck back in a few minutes';
       default:
@@ -268,17 +281,8 @@ const StatusSquare = ({ status }) => {
   };
   
   return (
-    <div className={`aspect-square ${bgColor} flex items-center justify-center p-4`}>
+    <div className={`aspect-square ${getGradient()} flex items-center justify-center p-4 transition-all duration-700 ease-in-out`}>
       <div className="text-center">
-        {status === 'creating' && (
-          <div className="animate-spin rounded-full h-8 w-8 border-2 border-white border-t-transparent mx-auto mb-3"></div>
-        )}
-        {status === 'polling' && (
-          <div className="text-2xl mb-3 animate-pulse">⏳</div>
-        )}
-        {status === 'timeout' && (
-          <div className="text-2xl mb-3">⏱️</div>
-        )}
         <p className="text-white text-xs font-medium whitespace-pre-line">
           {getMessage()}
         </p>
@@ -289,7 +293,6 @@ const StatusSquare = ({ status }) => {
 
 // Tagged Post Modal Component
 const TaggedPostModal = ({ isOpen, onClose, onPostCreated }) => {
-  const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState({
     instagramHandle: '',
     userPrompt: '',
@@ -317,13 +320,28 @@ const TaggedPostModal = ({ isOpen, onClose, onPostCreated }) => {
       return;
     }
 
-    setIsSubmitting(true);
+    // Close modal immediately and show status
+    onClose();
+    
+    // Notify parent to start showing status
+    if (onPostCreated) {
+      onPostCreated('pending'); // Will be replaced with actual ID once we get response
+    }
+    
+    // Reset form
+    const submissionData = {
+      instagramHandle: formData.instagramHandle,
+      userPrompt: formData.userPrompt,
+      selfie: formData.selfie
+    };
+    setFormData({ instagramHandle: '', userPrompt: '', selfie: null });
+    setPreviewUrl(null);
     
     try {
       const submitFormData = new FormData();
-      submitFormData.append('instagramHandle', formData.instagramHandle);
-      submitFormData.append('userPrompt', formData.userPrompt);
-      submitFormData.append('selfie', formData.selfie);
+      submitFormData.append('instagramHandle', submissionData.instagramHandle);
+      submitFormData.append('userPrompt', submissionData.userPrompt);
+      submitFormData.append('selfie', submissionData.selfie);
 
       const response = await fetch('/api/create-tagged-post', {
         method: 'POST',
@@ -334,14 +352,7 @@ const TaggedPostModal = ({ isOpen, onClose, onPostCreated }) => {
         const result = await response.json();
         console.log('Tagged post created:', result);
         
-        // Reset form
-        setFormData({ instagramHandle: '', userPrompt: '', selfie: null });
-        setPreviewUrl(null);
-        
-        // Close modal
-        onClose();
-        
-        // Notify parent to start polling
+        // Update with actual post ID for polling
         if (onPostCreated) {
           onPostCreated(result.taggedPost.id);
         }
@@ -352,8 +363,10 @@ const TaggedPostModal = ({ isOpen, onClose, onPostCreated }) => {
     } catch (error) {
       console.error('Error creating tagged post:', error);
       alert('Failed to create post. Please try again.');
-    } finally {
-      setIsSubmitting(false);
+      // Reset status on error
+      if (onPostCreated) {
+        onPostCreated(null);
+      }
     }
   };
 
@@ -368,7 +381,6 @@ const TaggedPostModal = ({ isOpen, onClose, onPostCreated }) => {
           <button 
             onClick={onClose}
             className="p-1 hover:bg-gray-100 rounded-full transition-colors"
-            disabled={isSubmitting}
           >
             <XIcon className="w-5 h-5" />
           </button>
@@ -393,7 +405,6 @@ const TaggedPostModal = ({ isOpen, onClose, onPostCreated }) => {
                   onChange={handleFileChange}
                   className="hidden"
                   required
-                  disabled={isSubmitting}
                 />
               </label>
             </div>
@@ -409,7 +420,6 @@ const TaggedPostModal = ({ isOpen, onClose, onPostCreated }) => {
               placeholder="instagram handle"
               className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
               required
-              disabled={isSubmitting}
             />
           </div>
 
@@ -423,7 +433,6 @@ const TaggedPostModal = ({ isOpen, onClose, onPostCreated }) => {
               rows={3}
               maxLength={50}
               className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none"
-              disabled={isSubmitting}
             />
             <div className="text-xs text-gray-500 text-right mt-1">
               {formData.userPrompt.length}/50
@@ -433,10 +442,9 @@ const TaggedPostModal = ({ isOpen, onClose, onPostCreated }) => {
           {/* Submit Button */}
           <button
             type="submit"
-            disabled={isSubmitting}
-            className="w-full bg-blue-500 hover:bg-blue-600 text-white font-semibold py-3 px-4 rounded-lg transition-colors disabled:bg-blue-300 disabled:cursor-not-allowed"
+            className="w-full bg-blue-500 hover:bg-blue-600 text-white font-semibold py-3 px-4 rounded-lg transition-colors"
           >
-            {isSubmitting ? 'Creating...' : 'Share'}
+            Share
           </button>
 
           {/* Warning Text */}
@@ -946,14 +954,16 @@ export default function Home() {
           const foundPost = data.taggedPosts.find(post => post.id === pollingPostId);
           
           if (foundPost) {
-            // Post found! Refresh the page to show it
+            // Post found! Show success state
             setTaggedPosts(data.taggedPosts);
             setPollingPostId(null);
-            setPostCreationStatus(null);
+            setPostCreationStatus('success');
             clearInterval(pollInterval);
             
-            // Switch to tagged tab if not already there
-            setActiveTab('tagged');
+            // Auto-dismiss success message after 3 seconds
+            setTimeout(() => {
+              setPostCreationStatus(null);
+            }, 3000);
             
             return;
           }
@@ -1006,13 +1016,17 @@ export default function Home() {
     // Switch to tagged tab to show the status square
     setActiveTab('tagged');
     
-    // Start showing the creation status
-    setPostCreationStatus('creating');
-    
-    // After a brief moment, start polling
-    setTimeout(() => {
+    if (postId === 'pending') {
+      // Just show creating status
+      setPostCreationStatus('creating');
+    } else if (postId === null) {
+      // Error case - clear status
+      setPostCreationStatus(null);
+      setPollingPostId(null);
+    } else {
+      // Got actual post ID, start polling
       setPollingPostId(postId);
-    }, 2000);
+    }
   };
 
   return (
