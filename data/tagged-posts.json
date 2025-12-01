@@ -1,6 +1,32 @@
 {
   "taggedPosts": [
     {
+      "id": "tagged-1764548046028",
+      "userInstagram": "test4",
+      "userSelfie": "/tagged/user-selfies/test4-1764548046028.jpg",
+      "generatedImage": "/tagged/generated/tagged-1764548046028.png",
+      "userPrompt": "working",
+      "expandedPrompt": "Put two friends, Maya and Chloe, in a brightly lit, slightly messy home office. Maya is sitting at a desk covered in papers, a half-eaten bowl of cereal, and a laptop with multiple browser tabs open. She's wearing a cozy sweater and has her hair in a messy bun. She's holding up her phone, pouting jokingly at the camera. Chloe is leaning over her shoulder, holding a large coffee mug and making a silly face with crossed eyes and her tongue sticking out. There's a whiteboard in the background with brainstorming notes scribbled on it, and a stack of books teetering precariously on a shelf. The lighting should be soft and diffused, creating a warm and inviting atmosphere.",
+      "caption": "Brains & caffeine fueling this study sesh 🤓☕ #StudyBuddies #HomeOfficeVibes #ProcrastinationNation #SendHelp",
+      "date": "Dec 1",
+      "comments": [
+        {
+          "id": "9ba35xd4y",
+          "text": "#puttwofriendsmayaandchloeinabrightlylitslightlymessyhomeofficemayaissittingatadeskcoveredinpapersahalfeatenbowlofcerealandalaptopwithmultiplebrowsertabsopensheswearingacozysweaterandhasherhairinamessybunshesholdingupherphonepoutingjokinglyatthecamerachloeisleaningoverhershoulderholdingalargecoffeemugandmakingasillyfacewithcrossedeyesandhertonguestickingouttheresawhiteboardinthebackgroundwithbrainstormingnotesscribbledonitandastackofbooksteeteringprecariouslyonashelfthelightingshouldbesoftanddiffusedcreatingawarmandinvitingatmosphere #collab",
+          "isHashtag": true,
+          "createdAt": "2025-12-01T00:14:06.056Z"
+        }
+      ],
+      "tags": [
+        {
+          "username": "everyday.tina.zone",
+          "x": 22,
+          "y": 57
+        }
+      ],
+      "createdAt": "2025-12-01T00:14:06.056Z"
+    },
+    {
       "id": "tagged-1764547376936",
       "userInstagram": "test3",
       "userSelfie": "/tagged/user-selfies/test3-1764547376936.jpg",
