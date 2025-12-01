@@ -1,6 +1,23 @@
 {
   "posts": [
     {
+      "date": "Dec 1",
+      "caption": "Day 67 📸",
+      "image": "/generated-1764609181815.png",
+      "comments": [
+        {
+          "id": "d2ps3dg48",
+          "text": "#aslightlyupdatedportraitofa35 #ai",
+          "isHashtag": true,
+          "createdAt": "2025-12-01T17:13:01.832Z"
+        }
+      ],
+      "daysSinceBaseline": 67,
+      "generatedPrompt": "A slightly updated portrait of a 35-",
+      "id": 5,
+      "createdAt": "2025-12-01T17:13:01.832Z"
+    },
+    {
       "date": "Nov 30",
       "caption": "** Crisp morning walks and cozy sweaters. Embracing these late autumn days! ☕🍂 #sweaterweather #autumnvibes #dailywalk #happy",
       "image": "/generated-1764544264312.png",
