@@ -1,27 +1,34 @@
-// Visit counter using Vercel KV
+// Visit counter using Vercel KV (Redis)
 // This persists across deployments
 
-import { createClient } from '@vercel/kv';
+import { createClient } from 'redis';
 
 const VISIT_KEY = 'site-visits';
 
-// Create KV client with custom environment variable prefix
-const kv = createClient({
-  url: process.env.everyday_tina_zone_REDIS_URL,
-  token: process.env.everyday_tina_zone_REDIS_TOKEN,
-});
+// Create a Redis client (reuse connection)
+let redisClient = null;
+
+async function getRedisClient() {
+  if (!redisClient) {
+    redisClient = createClient({ url: process.env.REDIS_URL });
+    await redisClient.connect();
+  }
+  return redisClient;
+}
 
 export default async function handler(req, res) {
   try {
+    const redis = await getRedisClient();
+    
     if (req.method === 'POST') {
       // Increment visit count
-      const visits = await kv.incr(VISIT_KEY);
+      const visits = await redis.incr(VISIT_KEY);
       res.status(200).json({ visits });
       
     } else if (req.method === 'GET') {
       // Get current visit count
-      const visits = await kv.get(VISIT_KEY);
-      res.status(200).json({ visits: visits || 0 });
+      const visits = await redis.get(VISIT_KEY);
+      res.status(200).json({ visits: visits ? parseInt(visits) : 0 });
       
     } else {
       res.setHeader('Allow', ['GET', 'POST']);
