@@ -10,7 +10,7 @@ This project demonstrates AI's ability to reason about temporal progression by g
 
 - **Daily Automated Posts**: GitHub Actions generates a new aged selfie every day at noon
 - **Tagged Collaborations**: Users can create collaborative posts with their own selfies
-- **Visit Counter**: Tracks site visitors using external service
+- **Visit Counter**: Tracks site visitors using Vercel KV
 - **Story Viewer**: Instagram-style stories with real photos
 - **Beautiful UI**: Pixel-perfect Instagram clone interface
 
@@ -70,7 +70,17 @@ vercel
 # Add environment variables in Vercel dashboard
 ```
 
-### 5. Set Up GitHub Actions
+### 5. Set Up Vercel KV (for visit counter)
+
+1. Go to your Vercel project dashboard
+2. Navigate to the **Storage** tab
+3. Click **Create Database** → **KV** (Redis)
+4. Name it `everyday-kv` (or any name you prefer)
+5. It will automatically link to your project
+
+The KV store is free for up to 256MB and handles the visit counter.
+
+### 6. Set Up GitHub Actions
 
 Add `GEMINI_API_KEY` to repository secrets (Settings → Secrets and variables → Actions)
 
@@ -160,9 +170,9 @@ act -s GEMINI_API_KEY=your-key workflow_dispatch
 - Check Vercel function logs
 
 **Visit counter not working?**
-- countapi.xyz might be down
-- Falls back to 0 gracefully
-- Consider alternative service
+- Ensure Vercel KV is set up (Storage tab)
+- Check KV is linked to your project
+- Falls back to 0 gracefully if KV unavailable
 
 ## 📝 License
 
