@@ -1,9 +1,15 @@
 // Visit counter using Vercel KV
 // This persists across deployments
 
-import { kv } from '@vercel/kv';
+import { createClient } from '@vercel/kv';
 
 const VISIT_KEY = 'site-visits';
+
+// Create KV client with custom environment variable prefix
+const kv = createClient({
+  url: process.env.everyday_tina_zone_REDIS_URL,
+  token: process.env.everyday_tina_zone_REDIS_TOKEN,
+});
 
 export default async function handler(req, res) {
   try {
