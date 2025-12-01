@@ -1,6 +1,32 @@
 {
   "taggedPosts": [
     {
+      "id": "tagged-1764547376936",
+      "userInstagram": "test3",
+      "userSelfie": "/tagged/user-selfies/test3-1764547376936.jpg",
+      "generatedImage": "/tagged/generated/tagged-1764547376936.png",
+      "userPrompt": "at a fancy restaurant in manhattan ",
+      "expandedPrompt": "Put these two people in a swanky, dimly lit Manhattan restaurant. One person, a woman with bright red lipstick and a sequined black dress, leans in close, holding up her phone for a selfie. She has a playful expression. Next to her, a man in a crisp blue suit smiles, holding up a champagne flute. In the background, bokeh lights from chandeliers and the soft glow of candles on white tablecloths create a luxurious and romantic atmosphere. A partially visible menu with elegant script hints at the upscale setting. A waiter is blurred in the background, holding a silver tray.",
+      "caption": "Manhattan nights & champagne dreams ✨🥂",
+      "date": "Dec 1",
+      "comments": [
+        {
+          "id": "o3tl428n5",
+          "text": "#aswankydimlylitmanhattanrestaurantonepersonawomanwithbrightredlipstickandasequinedblackdressleansincloseholdingupherphoneforaselfieshehasaplayfulexpressionnexttoheramaninacrispbluesuitsmilesholdingupachampagnefluteinthebackgroundbokehlightsfromchandeliersandthesoftglowofcandlesonwhitetableclothscreatealuxuriousandromanticatmosphereapartiallyvisiblemenuwithelegantscripthintsattheupscalesettingawaiterisblurredinthebackgroundholdingasilvertray #collab",
+          "isHashtag": true,
+          "createdAt": "2025-12-01T00:02:56.984Z"
+        }
+      ],
+      "tags": [
+        {
+          "username": "everyday.tina.zone",
+          "x": 47,
+          "y": 56
+        }
+      ],
+      "createdAt": "2025-12-01T00:02:56.984Z"
+    },
+    {
       "id": "tagged-1764546399929",
       "userInstagram": "test2",
       "userSelfie": "/tagged/user-selfies/test2-1764546399929.jpg",
