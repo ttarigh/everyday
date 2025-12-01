@@ -11,6 +11,114 @@ export const config = {
   },
 };
 
+// Rate limiting configuration
+const RATE_LIMITS = {
+  PER_IP_DAILY: 1,   // 1 post per IP address per day
+  GLOBAL_DAILY: 10,  // 10 posts total per day on default API key
+};
+
+// Helper to get client IP address
+function getClientIp(req) {
+  // Check various headers for IP (Vercel, CloudFlare, etc.)
+  const forwarded = req.headers['x-forwarded-for'];
+  const real = req.headers['x-real-ip'];
+  
+  if (forwarded) {
+    // x-forwarded-for can be a comma-separated list, take the first one
+    return forwarded.split(',')[0].trim();
+  }
+  
+  if (real) {
+    return real;
+  }
+  
+  // Fallback to connection remote address
+  return req.socket?.remoteAddress || 'unknown';
+}
+
+// Check and update rate limits
+async function checkRateLimit(clientIp, instagramHandle, usingCustomKey) {
+  // If using custom key, skip rate limit checks
+  if (usingCustomKey) {
+    return { allowed: true };
+  }
+
+  const githubCommitter = new GitHubCommitter();
+  
+  try {
+    // Read rate limits from GitHub
+    const { data } = await githubCommitter.octokit.repos.getContent({
+      owner: githubCommitter.owner,
+      repo: githubCommitter.repo,
+      path: 'data/rate-limits.json',
+      ref: githubCommitter.branch,
+    });
+    const content = Buffer.from(data.content, 'base64').toString('utf-8');
+    const rateLimitData = JSON.parse(content);
+    
+    const today = new Date().toISOString().split('T')[0]; // YYYY-MM-DD
+    
+    // Reset daily counts if it's a new day
+    if (rateLimitData.dailyLimits.lastReset !== today) {
+      rateLimitData.dailyLimits = {
+        lastReset: today,
+        globalCount: 0,
+        ipCounts: {},
+        userCounts: {}
+      };
+    }
+    
+    // Initialize ipCounts if it doesn't exist (for backward compatibility)
+    if (!rateLimitData.dailyLimits.ipCounts) {
+      rateLimitData.dailyLimits.ipCounts = {};
+    }
+    
+    // Check global rate limit
+    if (rateLimitData.dailyLimits.globalCount >= RATE_LIMITS.GLOBAL_DAILY) {
+      return { 
+        allowed: false, 
+        reason: 'global_limit',
+        message: 'Daily limit reached for the site'
+      };
+    }
+    
+    // Check per-IP rate limit (primary check)
+    const ipCount = rateLimitData.dailyLimits.ipCounts[clientIp] || 0;
+    if (ipCount >= RATE_LIMITS.PER_IP_DAILY) {
+      return { 
+        allowed: false, 
+        reason: 'ip_limit',
+        message: 'You have reached your daily limit (1 post per day)'
+      };
+    }
+    
+    // Also track by handle for analytics/anti-spam
+    const userCount = rateLimitData.dailyLimits.userCounts[instagramHandle] || 0;
+    
+    // Update counts
+    rateLimitData.dailyLimits.globalCount += 1;
+    rateLimitData.dailyLimits.ipCounts[clientIp] = ipCount + 1;
+    rateLimitData.dailyLimits.userCounts[instagramHandle] = userCount + 1;
+    
+    // Save updated rate limits back to GitHub
+    await githubCommitter.octokit.repos.createOrUpdateFileContents({
+      owner: githubCommitter.owner,
+      repo: githubCommitter.repo,
+      path: 'data/rate-limits.json',
+      message: 'Update rate limits',
+      content: Buffer.from(JSON.stringify(rateLimitData, null, 2)).toString('base64'),
+      sha: data.sha,
+      branch: githubCommitter.branch,
+    });
+    
+    return { allowed: true };
+  } catch (error) {
+    console.error('Error checking rate limit:', error);
+    // On error, allow the request (fail open)
+    return { allowed: true };
+  }
+}
+
 // Helper to get most recent selfie from posts
 async function getMostRecentSelfie() {
   try {
@@ -23,8 +131,8 @@ async function getMostRecentSelfie() {
 }
 
 // Generate expanded prompt using Gemini
-async function generateCollaborativePrompt(userPrompt) {
-  const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
+async function generateCollaborativePrompt(userPrompt, apiKey = null) {
+  const GEMINI_API_KEY = apiKey || process.env.GEMINI_API_KEY;
   
   if (!GEMINI_API_KEY) {
     throw new Error('Gemini API key not configured');
@@ -87,8 +195,8 @@ async function generateCollaborativePrompt(userPrompt) {
 }
 
 // Generate collaborative image
-async function generateCollaborativeImage(imagePrompt, userSelfieBuffer, mySelfieBuffer) {
-  const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
+async function generateCollaborativeImage(imagePrompt, userSelfieBuffer, mySelfieBuffer, apiKey = null) {
+  const GEMINI_API_KEY = apiKey || process.env.GEMINI_API_KEY;
   
   if (!GEMINI_API_KEY) {
     throw new Error('Gemini API key not configured');
@@ -161,6 +269,9 @@ export default async function handler(req, res) {
     const userPrompt = Array.isArray(fields.userPrompt) 
       ? fields.userPrompt[0] 
       : fields.userPrompt;
+    const customApiKey = Array.isArray(fields.customApiKey) 
+      ? fields.customApiKey[0] 
+      : fields.customApiKey;
     const selfieFile = Array.isArray(files.selfie) 
       ? files.selfie[0] 
       : files.selfie;
@@ -171,6 +282,23 @@ export default async function handler(req, res) {
 
     console.log('Creating tagged post for:', instagramHandle);
 
+    // Get client IP address
+    const clientIp = getClientIp(req);
+    console.log('Client IP:', clientIp);
+
+    // Check rate limits (skip if using custom API key)
+    const usingCustomKey = customApiKey && customApiKey.trim().length > 0;
+    const rateLimitCheck = await checkRateLimit(clientIp, instagramHandle, usingCustomKey);
+    
+    if (!rateLimitCheck.allowed) {
+      return res.status(429).json({ 
+        error: 'Rate limit exceeded',
+        reason: rateLimitCheck.reason,
+        message: rateLimitCheck.message,
+        needsApiKey: true
+      });
+    }
+
     // Read uploaded selfie
     const userSelfieBuffer = fs.readFileSync(selfieFile.filepath);
     
@@ -180,14 +308,15 @@ export default async function handler(req, res) {
 
     // Generate collaborative prompt
     console.log('🤖 Generating collaborative prompt...');
-    const { imagePrompt, caption } = await generateCollaborativePrompt(userPrompt);
+    const { imagePrompt, caption } = await generateCollaborativePrompt(userPrompt, customApiKey);
     console.log(`📝 Prompt: ${imagePrompt}`);
 
     // Generate collaborative image
     const generatedImageBuffer = await generateCollaborativeImage(
       imagePrompt,
       userSelfieBuffer,
-      mySelfieBuffer
+      mySelfieBuffer,
+      customApiKey
     );
 
     // Prepare file names

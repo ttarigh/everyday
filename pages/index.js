@@ -296,9 +296,12 @@ const TaggedPostModal = ({ isOpen, onClose, onPostCreated }) => {
   const [formData, setFormData] = useState({
     instagramHandle: '',
     userPrompt: '',
-    selfie: null
+    selfie: null,
+    customApiKey: ''
   });
   const [previewUrl, setPreviewUrl] = useState(null);
+  const [rateLimitError, setRateLimitError] = useState(null);
+  const [showApiKeyInput, setShowApiKeyInput] = useState(false);
 
   const handleFileChange = (e) => {
     const file = e.target.files[0];
@@ -320,37 +323,43 @@ const TaggedPostModal = ({ isOpen, onClose, onPostCreated }) => {
       return;
     }
 
-    // Close modal immediately and show status
-    onClose();
-    
-    // Notify parent to start showing status
-    if (onPostCreated) {
-      onPostCreated('pending'); // Will be replaced with actual ID once we get response
-    }
-    
-    // Reset form
-    const submissionData = {
-      instagramHandle: formData.instagramHandle,
-      userPrompt: formData.userPrompt,
-      selfie: formData.selfie
-    };
-    setFormData({ instagramHandle: '', userPrompt: '', selfie: null });
-    setPreviewUrl(null);
+    // Reset rate limit error
+    setRateLimitError(null);
     
     try {
       const submitFormData = new FormData();
-      submitFormData.append('instagramHandle', submissionData.instagramHandle);
-      submitFormData.append('userPrompt', submissionData.userPrompt);
-      submitFormData.append('selfie', submissionData.selfie);
+      submitFormData.append('instagramHandle', formData.instagramHandle);
+      submitFormData.append('userPrompt', formData.userPrompt);
+      submitFormData.append('selfie', formData.selfie);
+      if (formData.customApiKey) {
+        submitFormData.append('customApiKey', formData.customApiKey);
+      }
 
       const response = await fetch('/api/create-tagged-post', {
         method: 'POST',
         body: submitFormData,
       });
 
+      if (response.status === 429) {
+        // Rate limit exceeded
+        const error = await response.json();
+        setRateLimitError(error.message);
+        setShowApiKeyInput(true);
+        return;
+      }
+
       if (response.ok) {
         const result = await response.json();
         console.log('Tagged post created:', result);
+        
+        // Close modal and show status
+        onClose();
+        
+        // Reset form
+        setFormData({ instagramHandle: '', userPrompt: '', selfie: null, customApiKey: '' });
+        setPreviewUrl(null);
+        setRateLimitError(null);
+        setShowApiKeyInput(false);
         
         // Update with actual post ID for polling
         if (onPostCreated) {
@@ -387,6 +396,26 @@ const TaggedPostModal = ({ isOpen, onClose, onPostCreated }) => {
         </div>
         
         <form onSubmit={handleSubmit}>
+          {/* Rate Limit Error Message */}
+          {rateLimitError && (
+            <div className="mb-4 p-4 bg-yellow-50 border border-yellow-200 rounded-lg">
+              <p className="text-sm text-yellow-800 mb-2">
+                {rateLimitError}
+              </p>
+              <p className="text-sm text-gray-700">
+                This site is pretty popular! Bring your own API key:{' '}
+                <a 
+                  href="https://aistudio.google.com/app/api-keys" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="text-blue-600 hover:text-blue-800 underline font-medium"
+                >
+                  Get API Key
+                </a>
+              </p>
+            </div>
+          )}
+
           {/* Selfie Upload */}
           <div className="mb-6">
             <label className="block text-sm font-medium text-gray-700 mb-2">Your selfie *</label>
@@ -438,6 +467,36 @@ const TaggedPostModal = ({ isOpen, onClose, onPostCreated }) => {
               {formData.userPrompt.length}/50
             </div>
           </div>
+
+          {/* Custom API Key (shown after rate limit or when manually toggled) */}
+          {showApiKeyInput && (
+            <div className="mb-6">
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Your Gemini API Key (optional)
+              </label>
+              <input
+                type="password"
+                value={formData.customApiKey}
+                onChange={(e) => setFormData(prev => ({ ...prev, customApiKey: e.target.value }))}
+                placeholder="paste your API key here"
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent font-mono text-sm"
+              />
+              <p className="text-xs text-gray-500 mt-1">
+                Your API key is only used for this request and is not stored
+              </p>
+            </div>
+          )}
+
+          {/* Toggle API Key Input */}
+          {!showApiKeyInput && (
+            <button
+              type="button"
+              onClick={() => setShowApiKeyInput(true)}
+              className="w-full text-sm text-blue-600 hover:text-blue-800 mb-4 text-center"
+            >
+              Use your own API key
+            </button>
+          )}
 
           {/* Submit Button */}
           <button
