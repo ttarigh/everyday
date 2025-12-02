@@ -1,6 +1,23 @@
 {
   "posts": [
     {
+      "date": "Dec 2",
+      "caption": "** December vibes kicking in. Hot cocoa and cozy sweaters are officially essential. ☕ #almostwinter #cozy #sweaterweather",
+      "image": "/generated-1764695685157.png",
+      "comments": [
+        {
+          "id": "kh7ecdmdu",
+          "text": "#aslightlyupcloserealisticportraitofawomanwithshoulderlengthwavybrunettehairsimilartotheoriginalphotosheswearingacozyslightlyoversizeddarkgreenknitsweaterandadelicatesilvernecklacethelightingissoftanddiffusedsuggestinganovercastdayherskinappearsslightlydrierthanintheoriginalphotowithverysubtlymorepronouncednasolabialfoldsatinybitofextratexturearoundtheeyestherearefaintshadowsunderhereyessuggestingatouchoftirednessitslateautumnarounddecember2nd2025andshesholdingasteamingmugpresumablycoffeeorteainherhandsshehasarelaxedandcontentexpressionlookingdirectlyatthecamerawithaslightwarmsmilethebackgroundisslightlyblurredsuggestingacomfortableandlivedininteriorspaceperhapsahomeofficeorlivingroomwithwarmlightingsubtlechangestoherhairtexturewithafewmorestraystrandscaptiondecembervibeskickinginhotcocoaandcozysweatersareofficiallyessentialalmostwintercozysweaterweather #ai",
+          "isHashtag": true,
+          "createdAt": "2025-12-02T17:14:45.173Z"
+        }
+      ],
+      "daysSinceBaseline": 68,
+      "generatedPrompt": "** A slightly up-close, realistic portrait of a woman with shoulder-length, wavy brunette hair, similar to the original photo. She's wearing a cozy, slightly oversized dark green knit sweater and a delicate silver necklace. The lighting is soft and diffused, suggesting an overcast day. Her skin appears slightly drier than in the original photo, with very subtly more pronounced nasolabial folds. A tiny bit of extra texture around the eyes. There are faint shadows under her eyes, suggesting a touch of tiredness. It's late Autumn (around December 2nd, 2025) and she's holding a steaming mug, presumably coffee or tea, in her hands. She has a relaxed and content expression, looking directly at the camera with a slight, warm smile. The background is slightly blurred, suggesting a comfortable and lived-in interior space, perhaps a home office or living room, with warm lighting. Subtle changes to her hair texture, with a few more stray strands.\n\n**CAPTION:** December vibes kicking in. Hot cocoa and cozy sweaters are officially essential. ☕ #almostwinter #cozy #sweaterweather",
+      "id": 6,
+      "createdAt": "2025-12-02T17:14:45.173Z"
+    },
+    {
       "date": "Dec 1",
       "caption": "Day 67 📸",
       "image": "/generated-1764609181815.png",
