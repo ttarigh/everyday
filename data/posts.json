@@ -1,6 +1,23 @@
 {
   "posts": [
     {
+      "date": "Dec 3",
+      "caption": "** Sipping on something warm and enjoying the quiet moments before the holiday hustle really kicks in. 🍂☕ #earlywinter #cozyvibes #decemberdays #dailylife",
+      "image": "/generated-1764782099669.png",
+      "comments": [
+        {
+          "id": "fyd6utmw9",
+          "text": "#arealisticphotographofawomanwithshoulderlengthbrownhairwearingaslightlyheavierautumntonedburgundyorolivegreenknitsweaterthephotoistakenoutdoorsinsoftdiffuseddaylighttypicalofearlydecembertherearesubtlesignsofagingveryslightlymoreprominentlaughlinesaroundtheeyesahintofdrynesstotheskinandperhapsaslightlylessvibranthairtoneatouchmoregraylesswarmthsheisholdingatravelmugsuggestingshesonthegoandthebackgroundisblurredsuggestinganurbanparkorcitystreetwithbaretreesvisibletheoverallimpressionshouldbenaturalandsubtlereflectingapproximately69daysofagingsincelateseptemberandatransitiontoacoolerearlywinterclimatetheexpressionisrelaxedandthoughtfulcaptionsippingonsomethingwarmandenjoyingthequietmomentsbeforetheholidayhustlereallykicksinearlywintercozyvibesdecemberdaysdailylife #ai",
+          "isHashtag": true,
+          "createdAt": "2025-12-03T17:14:59.685Z"
+        }
+      ],
+      "daysSinceBaseline": 69,
+      "generatedPrompt": "** A realistic photograph of a woman with shoulder-length brown hair, wearing a slightly heavier, autumn-toned (burgundy or olive green) knit sweater. The photo is taken outdoors in soft, diffused daylight, typical of early December. There are subtle signs of aging: *very* slightly more prominent laugh lines around the eyes, a *hint* of dryness to the skin, and perhaps a slightly less vibrant hair tone (a touch more gray/less warmth). She is holding a travel mug (suggesting she's on the go), and the background is blurred, suggesting an urban park or city street with bare trees visible. The overall impression should be natural and subtle, reflecting approximately 69 days of aging since late September, and a transition to a cooler, early winter climate. The expression is relaxed and thoughtful.\n\n**CAPTION:** Sipping on something warm and enjoying the quiet moments before the holiday hustle really kicks in. 🍂☕ #earlywinter #cozyvibes #decemberdays #dailylife",
+      "id": 7,
+      "createdAt": "2025-12-03T17:14:59.685Z"
+    },
+    {
       "date": "Dec 2",
       "caption": "** December vibes kicking in. Hot cocoa and cozy sweaters are officially essential. ☕ #almostwinter #cozy #sweaterweather",
       "image": "/generated-1764695685157.png",
