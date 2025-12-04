@@ -1,6 +1,23 @@
 {
   "posts": [
     {
+      "date": "Dec 4",
+      "caption": "Day 70 📸",
+      "image": "/generated-1764868476388.png",
+      "comments": [
+        {
+          "id": "op3ddwa26",
+          "text": "#okayiunderstandpleaseprovidetheoriginalimageonceihaveitiwillgeneratetheimagepromptandcaptionasrequested #ai",
+          "isHashtag": true,
+          "createdAt": "2025-12-04T17:14:36.404Z"
+        }
+      ],
+      "daysSinceBaseline": 70,
+      "generatedPrompt": "Okay, I understand. Please provide the original image. Once I have it, I will generate the image prompt and caption as requested.",
+      "id": 8,
+      "createdAt": "2025-12-04T17:14:36.404Z"
+    },
+    {
       "date": "Dec 3",
       "caption": "** Sipping on something warm and enjoying the quiet moments before the holiday hustle really kicks in. 🍂☕ #earlywinter #cozyvibes #decemberdays #dailylife",
       "image": "/generated-1764782099669.png",
