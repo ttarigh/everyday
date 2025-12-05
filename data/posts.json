@@ -1,6 +1,23 @@
 {
   "posts": [
     {
+      "date": "Dec 5",
+      "caption": "Cozy sweater weather and a quiet moment with my favorite latte. Reflecting on the little things that make each day special. ☕ #autumnvibes #coffeeshop #slowliving #daybyday",
+      "image": "/generated-1764954666422.png",
+      "comments": [
+        {
+          "id": "kakpkwqm5",
+          "text": "#amediumshotofawomanlikelyinherlate30stoearly40swithlightbrownhairandwarmskintonesheswearingacasualbutpolishedoutfitperhapsadarkgreenturtlenecksweateranddarkwashjeansthelightingissoftandnaturalsuggestingitslatemorningorearlyafternoonthebackgroundisasoftlyblurredcoffeeshopinteriorwithwarmtonesandthesuggestionofpeopleworkingorchattingherexpressionisthoughtfulbutrelaxedwithahintofasmilesubtleagingdetailsveryslightlymorepronouncednasolabialfoldstheskinaroundhereyesappearsmarginallylesstautwithfaintbeginningsofcrowsfeetmoreevidentbutstillverysubtlethehairmighthaveafewmorestraystrandsandasubtlylessvibrantcoloroveralltheskinhasaslightlydrierappearancereflectingtheapproachingwintermonthstheoveralleffectshouldbeextremelysubtleindicatingthepassageofapproximately71dayssincelateseptember2025focusshouldbeonanaturalhealthylooknotexaggeratedaging #ai",
+          "isHashtag": true,
+          "createdAt": "2025-12-05T17:11:06.436Z"
+        }
+      ],
+      "daysSinceBaseline": 71,
+      "generatedPrompt": "A medium shot of a woman, likely in her late 30s to early 40s, with light brown hair and warm skin tone. She's wearing a casual but polished outfit - perhaps a dark green turtleneck sweater and dark wash jeans. The lighting is soft and natural, suggesting it's late morning or early afternoon. The background is a softly blurred coffee shop interior, with warm tones and the suggestion of people working or chatting. Her expression is thoughtful but relaxed, with a hint of a smile.\n\nSubtle aging details: Very slightly more pronounced nasolabial folds. The skin around her eyes appears marginally less taut, with faint beginnings of crow's feet more evident (but still very subtle). The hair might have a few more stray strands and a subtly less vibrant color overall. The skin has a slightly drier appearance, reflecting the approaching winter months. The overall effect should be extremely subtle, indicating the passage of approximately 71 days since late September 2025. Focus should be on a natural, healthy look, not exaggerated aging.",
+      "id": 9,
+      "createdAt": "2025-12-05T17:11:06.436Z"
+    },
+    {
       "date": "Dec 4",
       "caption": "Day 70 📸",
       "image": "/generated-1764868476388.png",
