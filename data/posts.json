@@ -1,6 +1,23 @@
 {
   "posts": [
     {
+      "date": "Dec 6",
+      "caption": "Working from home on a chilly December morning. Sipping tea and tackling the last projects before the holidays! ☕ #workfromhome #wintervibes #busymom #homeoffice",
+      "image": "/generated-1765040900491.png",
+      "comments": [
+        {
+          "id": "sg4ck7wnn",
+          "text": "#aslightlymorematurewomanearlytomid30swithsubtlesmilelinesaroundhereyesandmouthandabarelyperceptibledeepeningofanyexistingwrinklessheiswearingawarmdarkgreyturtlenecksweaterandatailoredblackblazersittingatadeskinahomeofficethelightingissoftandslightlydiffusedsuggestingacloudywinterdayshehasafocusedexpressionasshelooksatacomputerscreenherhairstyledsimilarlytotheoriginalimageisslightlylessvibrantwithafewmorestrayhairsaroundherfaceasteamingmugsitsonherdesktheoverallatmosphereiscozyandprofessional #ai",
+          "isHashtag": true,
+          "createdAt": "2025-12-06T17:08:20.507Z"
+        }
+      ],
+      "daysSinceBaseline": 72,
+      "generatedPrompt": "A slightly more mature woman, early-to-mid 30s, with subtle smile lines around her eyes and mouth, and a barely perceptible deepening of any existing wrinkles. She is wearing a warm, dark grey turtleneck sweater and a tailored black blazer, sitting at a desk in a home office. The lighting is soft and slightly diffused, suggesting a cloudy winter day. She has a focused expression as she looks at a computer screen. Her hair, styled similarly to the original image, is slightly less vibrant, with a few more stray hairs around her face. A steaming mug sits on her desk. The overall atmosphere is cozy and professional.",
+      "id": 10,
+      "createdAt": "2025-12-06T17:08:20.507Z"
+    },
+    {
       "date": "Dec 5",
       "caption": "Cozy sweater weather and a quiet moment with my favorite latte. Reflecting on the little things that make each day special. ☕ #autumnvibes #coffeeshop #slowliving #daybyday",
       "image": "/generated-1764954666422.png",
