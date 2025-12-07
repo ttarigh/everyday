@@ -1,6 +1,23 @@
 {
   "posts": [
     {
+      "date": "Dec 7",
+      "caption": "Sunday morning reflections. Cozy vibes and a little bit of winter sun. ✨",
+      "image": "/generated-1765127296007.png",
+      "comments": [
+        {
+          "id": "roi20orcb",
+          "text": "#arealisticportraitofapersonindoorsstandingnearawindowwithsoftdiffusedwinterlighttheyarewearingacozyslightlyoversizedknitsweaterinamutedearthytoneperhapsadarkgreenorbrownlayeredoveracollaredshirttheindividualhasverysubtlysofterlinesaroundtheireyesandmouthabarelyperceptibledeepeningofexistingfinelinesandperhapsahintofdrynesstotheirskinconsistentwithwinterweatherhairisstyledinasimilarfashiontotheirusualstylebutperhapsslightlylessperfectlycoiffedsuggestingarelaxedweekendlookthepersonhasawarmgentleexpressionlookingslightlyoffcameraasifinthoughtcaptureasenseofquietcontentmentandthesubtleeffectsoflateautumnearlywinterontheirappearanceafterabusyweek #ai",
+          "isHashtag": true,
+          "createdAt": "2025-12-07T17:08:16.024Z"
+        }
+      ],
+      "daysSinceBaseline": 73,
+      "generatedPrompt": "A realistic portrait of a person, indoors, standing near a window with soft, diffused winter light. They are wearing a cozy, slightly oversized knit sweater in a muted earthy tone (perhaps a dark green or brown), layered over a collared shirt. The individual has very subtly softer lines around their eyes and mouth, a barely perceptible deepening of existing fine lines, and perhaps a hint of dryness to their skin, consistent with winter weather. Hair is styled in a similar fashion to their usual style, but perhaps slightly less perfectly coiffed, suggesting a relaxed weekend look. The person has a warm, gentle expression, looking slightly off-camera, as if in thought. Capture a sense of quiet contentment and the subtle effects of late autumn/early winter on their appearance after a busy week.",
+      "id": 11,
+      "createdAt": "2025-12-07T17:08:16.024Z"
+    },
+    {
       "date": "Dec 6",
       "caption": "Working from home on a chilly December morning. Sipping tea and tackling the last projects before the holidays! ☕ #workfromhome #wintervibes #busymom #homeoffice",
       "image": "/generated-1765040900491.png",
