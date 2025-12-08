@@ -1,6 +1,23 @@
 {
   "posts": [
     {
+      "date": "Dec 8",
+      "caption": "** Just another Monday powering through with caffeine and cozy layers! ☕ #officelife #wintervibes #sweaterweather #workmode",
+      "image": "/generated-1765213939229.png",
+      "comments": [
+        {
+          "id": "u9ob3ytcn",
+          "text": "#aslightlyclosershotofthesamewomannowondecember82025sheisstillinabusinesscasualoutfitperhapsaslightlythickerknitsweaterwithasimilarblazerdarkwashjeansandanklebootsimplyingacoolerseasonsheisstandinginasimilarofficeenvironmentbutthelightingisslightlysofterreflectingshorterdaylighthoursherbrownhairisstyledsimilarlybutperhapsafewmorestrandsaretuckedbehindherearrevealingahintoffinelinesaroundhereyesthatwerelessvisiblebeforetheskintextureisveryslightlylesssmoothwithafainthintofdrynessthatcouldbeattributedtowinterweatheraslightlymorewearylookinhereyessuggestingabusyweekshesholdingamugofcoffeethebackgroundisslightlyblurredbutshowsmodernofficeelementscaptionjustanothermondaypoweringthroughwithcaffeineandcozylayersofficelifewintervibessweaterweatherworkmode #ai",
+          "isHashtag": true,
+          "createdAt": "2025-12-08T17:12:19.245Z"
+        }
+      ],
+      "daysSinceBaseline": 74,
+      "generatedPrompt": "** A slightly closer shot of the same woman, now on December 8, 2025. She is still in a business casual outfit, perhaps a slightly thicker knit sweater with a similar blazer, dark wash jeans, and ankle boots, implying a cooler season. She is standing in a similar office environment, but the lighting is slightly softer, reflecting shorter daylight hours. Her brown hair is styled similarly, but perhaps a few more strands are tucked behind her ear, revealing a hint of fine lines around her eyes that were less visible before. The skin texture is very slightly less smooth, with a faint hint of dryness that could be attributed to winter weather. A slightly more weary look in her eyes, suggesting a busy week. She's holding a mug of coffee. The background is slightly blurred, but shows modern office elements.\n\n**CAPTION:** Just another Monday powering through with caffeine and cozy layers! ☕ #officelife #wintervibes #sweaterweather #workmode",
+      "id": 12,
+      "createdAt": "2025-12-08T17:12:19.245Z"
+    },
+    {
       "date": "Dec 7",
       "caption": "Sunday morning reflections. Cozy vibes and a little bit of winter sun. ✨",
       "image": "/generated-1765127296007.png",
