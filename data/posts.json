@@ -1,6 +1,23 @@
 {
   "posts": [
     {
+      "date": "Dec 9",
+      "caption": "Quiet moments before the holiday rush. Feeling grateful for cozy sweaters and good company. #DecemberDays #WinterVibes #SlowDown",
+      "image": "/generated-1765300365747.png",
+      "comments": [
+        {
+          "id": "ptn0fsg09",
+          "text": "#closeupportraitofapersonwithdescribehaircolorstylefromoriginalimageassumingbrownandshoulderlengthhairthepersonisindoorsnearawindowwithsoftdiffusedwinterlightthelightingsubtlyemphasizesafewnewveryfinelinesaroundtheireyesandmouthalmostimperceptibletheirskinhasaslightlylesssunkissedtonethanitwouldhaveinlatesummertheyarewearingadarkgreyfineknitsweaterandasimplesilvernecklacetheirexpressionisthoughtfulandcalmlookingslightlytotherightasiflisteningtosomeonetheoverallimageshouldberealisticwithnaturalskintextureandminimalretouching #ai",
+          "isHashtag": true,
+          "createdAt": "2025-12-09T17:12:45.763Z"
+        }
+      ],
+      "daysSinceBaseline": 75,
+      "generatedPrompt": "Close-up portrait of a person with [describe hair color/style from original image, assuming brown and shoulder length] hair. The person is indoors, near a window with soft, diffused winter light. The lighting subtly emphasizes a few new, very fine lines around their eyes and mouth, almost imperceptible. Their skin has a slightly less sun-kissed tone than it would have in late summer. They are wearing a dark grey, fine-knit sweater and a simple silver necklace. Their expression is thoughtful and calm, looking slightly to the right, as if listening to someone. The overall image should be realistic, with natural skin texture and minimal retouching.",
+      "id": 13,
+      "createdAt": "2025-12-09T17:12:45.763Z"
+    },
+    {
       "date": "Dec 8",
       "caption": "** Just another Monday powering through with caffeine and cozy layers! ☕ #officelife #wintervibes #sweaterweather #workmode",
       "image": "/generated-1765213939229.png",
