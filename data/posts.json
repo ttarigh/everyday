@@ -1,6 +1,23 @@
 {
   "posts": [
     {
+      "date": "Dec 10",
+      "caption": "** [Cozying up with a cuppa after a long day. December days are getting short! ☕️ #wintervibes #workfromhome #decemberdays #cozyathome",
+      "image": "/generated-1765386855127.png",
+      "comments": [
+        {
+          "id": "ok1c0uwkd",
+          "text": "#closeupportraitofapersonwithwarmbrownhairasintheoriginalphotoandhazeleyessittinginawarmlylithomeofficetheyarewearingacozyslightlyoversizedgreysweateroverasimplewhitetshirtthelightingissoftandgoldensuggestinglateafternoonwintersuntherearesubtlesignsofagingslightlymorepronouncednasolabialfoldsahintoffinelinesaroundtheeyescrowsfeetandaverysubtledarkeningoftheskinundertheeyestheskinhasaslightlydrierlookthanintheoriginalphotoreflectingthewinterseasonthepersonislookingdirectlyatthecamerawitharelaxedslightlytiredbutcontentexpressiontheyareholdingamugwithasteamingbeveragesuggestingteaorcoffeeinthebackgroundabookshelfisvisibleblurredwithsomeholidaydecorationssubtlyplacedasmallstringoflightsapineconetheoverallimpressionshouldbenaturalandsubtlyagedreflectingthepassageofapproximately76dayssinceaphototakeninlateseptemberthepersonsstyleshouldbeconsistentwithacasualcomfortableaestheticcaptioncozyingupwithacuppaafteralongdaydecemberdaysaregettingshortwintervibesworkfromhomedecemberdayscozyathome #ai",
+          "isHashtag": true,
+          "createdAt": "2025-12-10T17:14:15.143Z"
+        }
+      ],
+      "daysSinceBaseline": 76,
+      "generatedPrompt": "** [Close-up portrait of a person with warm brown hair (as in the original photo) and hazel eyes, sitting in a warmly lit home office. They are wearing a cozy, slightly oversized grey sweater over a simple white t-shirt. The lighting is soft and golden, suggesting late afternoon winter sun. There are subtle signs of aging: slightly more pronounced nasolabial folds, a hint of fine lines around the eyes (crows feet), and a very subtle darkening of the skin under the eyes. The skin has a slightly drier look than in the original photo, reflecting the winter season. The person is looking directly at the camera with a relaxed, slightly tired but content expression. They are holding a mug with a steaming beverage (suggesting tea or coffee). In the background, a bookshelf is visible, blurred, with some holiday decorations subtly placed (a small string of lights, a pinecone). The overall impression should be natural and subtly aged, reflecting the passage of approximately 76 days since a photo taken in late September. The person's style should be consistent with a casual, comfortable aesthetic.]\n\n**CAPTION:** [Cozying up with a cuppa after a long day. December days are getting short! ☕️ #wintervibes #workfromhome #decemberdays #cozyathome",
+      "id": 14,
+      "createdAt": "2025-12-10T17:14:15.143Z"
+    },
+    {
       "date": "Dec 9",
       "caption": "Quiet moments before the holiday rush. Feeling grateful for cozy sweaters and good company. #DecemberDays #WinterVibes #SlowDown",
       "image": "/generated-1765300365747.png",
