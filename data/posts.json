@@ -1,6 +1,23 @@
 {
   "posts": [
     {
+      "date": "Dec 11",
+      "caption": "Day 77 📸",
+      "image": "/generated-1765473472159.png",
+      "comments": [
+        {
+          "id": "lp6mx17e4",
+          "text": "#okayiunderstandpleaseprovidetheoriginalphotoonceyouprovidethephotoiwillgeneratetheimagepromptandcaptionaccordingtoyourspecificationsiwillassumetheoriginalphotowastakenonseptember252025andthenewimageistorepresentdecember112025 #ai",
+          "isHashtag": true,
+          "createdAt": "2025-12-11T17:17:52.175Z"
+        }
+      ],
+      "daysSinceBaseline": 77,
+      "generatedPrompt": "Okay, I understand. Please provide the original photo. Once you provide the photo, I will generate the image prompt and caption according to your specifications. I will assume the original photo was taken on September 25, 2025, and the new image is to represent December 11, 2025.",
+      "id": 15,
+      "createdAt": "2025-12-11T17:17:52.175Z"
+    },
+    {
       "date": "Dec 10",
       "caption": "** [Cozying up with a cuppa after a long day. December days are getting short! ☕️ #wintervibes #workfromhome #decemberdays #cozyathome",
       "image": "/generated-1765386855127.png",
