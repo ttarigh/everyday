@@ -1,6 +1,23 @@
 {
   "posts": [
     {
+      "date": "Dec 12",
+      "caption": "Friday feels! Getting those last projects wrapped up before the weekend. ☕ #workfromhome #wintervibes #fridaymood #aginggracefully",
+      "image": "/generated-1765559438243.png",
+      "comments": [
+        {
+          "id": "jquapyi6w",
+          "text": "#aslightlymorematureversionoftheoriginalwomanthedateisnowdecember122025sheissittingatawelllitdeskworkingfromhomethelightcomingfromthewindowisasoftcoolwinterlightsheiswearingacomfortablebutprofessionallookingdarkbluesweaterwithasimplesilvernecklacereflectingherestablishedpersonalstyleherhairstyledsimilarlytotheoriginalmighthaveafewmorevisiblestrandsofgrayaroundthetemplessubtletheskinaroundhereyesshowsslightlyfinerlinesandtheundereyeareaisatouchlessfirmthanbeforetheresahintofrosycheeksfromthecoldweatherahalfemptymugofcoffeesitstoherlefttheoverallfeelingisoneofcozyproductivityonawinterdayfocusonrealisticskintextureandlighting #ai",
+          "isHashtag": true,
+          "createdAt": "2025-12-12T17:10:38.261Z"
+        }
+      ],
+      "daysSinceBaseline": 78,
+      "generatedPrompt": "A slightly more mature version of the original woman. The date is now December 12, 2025. She is sitting at a well-lit desk, working from home. The light coming from the window is a soft, cool winter light. She is wearing a comfortable but professional-looking dark blue sweater with a simple silver necklace, reflecting her established personal style. Her hair, styled similarly to the original, might have a few more visible strands of gray around the temples (subtle). The skin around her eyes shows slightly finer lines, and the under-eye area is a touch less firm than before. There's a hint of rosy cheeks from the cold weather. A half-empty mug of coffee sits to her left. The overall feeling is one of cozy productivity on a winter day. Focus on realistic skin texture and lighting.",
+      "id": 16,
+      "createdAt": "2025-12-12T17:10:38.261Z"
+    },
+    {
       "date": "Dec 11",
       "caption": "Day 77 📸",
       "image": "/generated-1765473472159.png",
