@@ -1,6 +1,23 @@
 {
   "posts": [
     {
+      "date": "Dec 13",
+      "caption": "** Just grabbing a coffee before tackling the holiday shopping. Time flies! 🍂☕️ #DecemberDays #CozyVibes #AlmostWinter",
+      "image": "/generated-1765645708454.png",
+      "comments": [
+        {
+          "id": "d92yuodlv",
+          "text": "#portraitofapersonwithlate20searly30sstandingoutdoorsonaslightlyovercastdayinearlydecemberthepersoniswearingawarmstylishbutcasualfallwinteroutfitadarkgreenpufferjacketoveracreamcoloredcableknitsweaterdarkwashjeansandbrownleatherbootssubtlechangesreflecting79daysofagingarevisibleslightlymorepronouncednasolabialfoldsahintoffinelinesaroundtheeyescrowsfeetandsubtlylessvibrantskintonethepersonisholdingatakeawaycoffeecuplookingslightlytiredbutcontentthebackgroundisablurrystreetscenewithbaretreesandfallenleavesfocusonrealisticskintextureandnaturallightingcaptionjustgrabbingacoffeebeforetacklingtheholidayshoppingtimefliesdecemberdayscozyvibesalmostwinter #ai",
+          "isHashtag": true,
+          "createdAt": "2025-12-13T17:08:28.470Z"
+        }
+      ],
+      "daysSinceBaseline": 79,
+      "generatedPrompt": "** Portrait of a person with late 20s/early 30s, standing outdoors on a slightly overcast day in early December. The person is wearing a warm, stylish, but casual fall/winter outfit: a dark green puffer jacket over a cream-colored cable knit sweater, dark wash jeans, and brown leather boots. Subtle changes reflecting 79 days of aging are visible: slightly more pronounced nasolabial folds, a hint of fine lines around the eyes (crow's feet), and subtly less vibrant skin tone. The person is holding a takeaway coffee cup, looking slightly tired but content. The background is a blurry street scene with bare trees and fallen leaves. Focus on realistic skin texture and natural lighting.\n\n**CAPTION:** Just grabbing a coffee before tackling the holiday shopping. Time flies! 🍂☕️ #DecemberDays #CozyVibes #AlmostWinter",
+      "id": 17,
+      "createdAt": "2025-12-13T17:08:28.471Z"
+    },
+    {
       "date": "Dec 12",
       "caption": "Friday feels! Getting those last projects wrapped up before the weekend. ☕ #workfromhome #wintervibes #fridaymood #aginggracefully",
       "image": "/generated-1765559438243.png",
