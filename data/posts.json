@@ -1,6 +1,23 @@
 {
   "posts": [
     {
+      "date": "Dec 14",
+      "caption": "Cozying up with a good book and a warm drink. December nights are made for this! ☕📚 #winterreads #cozyvibes #homesweethome",
+      "image": "/generated-1765732141970.png",
+      "comments": [
+        {
+          "id": "tcr1wp8a5",
+          "text": "#aslightlywidermediumshotofawomaninherearlytomidthirtiesstandinginawarmlylitlivingroomshehasslightlydeepersmilelinesandafainthintofcrowsfeetaroundhereyesherskinappearsslightlydrierthaninlatesummerwithatouchofrednessonhercheeksfromthecoolweatheroutsideherhairisstyledsimilarlytotheoriginalimagebutperhapsalittlelessperfectlywithafewstraystrandsescapingsheswearingacozyoversizedknitsweaterinaneutralcolorcreamorgreyanddarkwashjeansshesholdingamugofteaorcoffeeinonehandandapaperbackbookintheotherlookingrelaxedandcontentthebackgroundissoftlyblurredbutsuggestsacomfortablelivedinspacewithbookshelvesandafireplacesoftwarmlightingfromatablelampcreatesacozyatmospheretheoverallimpressionisofaslightlymoreweatheredbutstillvibrantandattractivewomanenjoyingaquieteveningathomeintheearlywinter #ai",
+          "isHashtag": true,
+          "createdAt": "2025-12-14T17:09:01.986Z"
+        }
+      ],
+      "daysSinceBaseline": 80,
+      "generatedPrompt": "A slightly wider, medium shot of a woman in her early to mid-thirties, standing in a warmly lit living room. She has slightly deeper smile lines and a faint hint of crow's feet around her eyes. Her skin appears slightly drier than in late summer, with a touch of redness on her cheeks from the cool weather outside. Her hair is styled similarly to the original image, but perhaps a little less perfectly, with a few stray strands escaping. She's wearing a cozy, oversized knit sweater in a neutral color (cream or grey), and dark wash jeans. She's holding a mug of tea or coffee in one hand, and a paperback book in the other, looking relaxed and content. The background is softly blurred, but suggests a comfortable, lived-in space with bookshelves and a fireplace. Soft, warm lighting from a table lamp creates a cozy atmosphere. The overall impression is of a slightly more weathered, but still vibrant and attractive woman enjoying a quiet evening at home in the early winter.",
+      "id": 18,
+      "createdAt": "2025-12-14T17:09:01.986Z"
+    },
+    {
       "date": "Dec 13",
       "caption": "** Just grabbing a coffee before tackling the holiday shopping. Time flies! 🍂☕️ #DecemberDays #CozyVibes #AlmostWinter",
       "image": "/generated-1765645708454.png",
