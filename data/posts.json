@@ -1,6 +1,23 @@
 {
   "posts": [
     {
+      "date": "Dec 18",
+      "caption": "** Another day, another dollar! 🍂 Embracing the cozy vibes as the days get shorter. #AutumnVibes #WorkLife #AlmostFriday",
+      "image": "/generated-1766078127720.png",
+      "comments": [
+        {
+          "id": "n8w14zn7n",
+          "text": "#aslightlyclosershotofapersonwithfairskinandbrownhairnowwithafewveryfaintsmilelinesaroundtheeyesandmouththatwerentasvisiblebeforethehairisstyledsimilarlyperhapsslightlylessmeticulouslywithafewstrandsoutofplacesuggestingabusyworkdaytheyrewearingadarkgreenfineknitsweaterandasimplesilvernecklacethebackgroundisablurredmodernofficeenvironmentthelightingissoftanddiffusedsimulatingnaturallightonalateautumndaytheskintoneisslightlylessvibrantthanitwasinseptemberwithahintofdrynesstheoverallexpressionispleasantbutwithatouchoffatiguearoundtheeyestheresahintofasubtlefreckleortwoappearingonthebridgeofthenosethatwerenotasnoticeablebeforecaptionanotherdayanotherdollarembracingthecozyvibesasthedaysgetshorterautumnvibesworklifealmostfriday #ai",
+          "isHashtag": true,
+          "createdAt": "2025-12-18T17:15:27.736Z"
+        }
+      ],
+      "daysSinceBaseline": 84,
+      "generatedPrompt": "** A slightly closer shot of a person with fair skin and brown hair, now with a few very faint smile lines around the eyes and mouth that weren't as visible before. The hair is styled similarly, perhaps slightly less meticulously, with a few strands out of place, suggesting a busy workday. They're wearing a dark green, fine-knit sweater, and a simple silver necklace. The background is a blurred, modern office environment. The lighting is soft and diffused, simulating natural light on a late autumn day. The skin tone is slightly less vibrant than it was in September, with a hint of dryness. The overall expression is pleasant, but with a touch of fatigue around the eyes. There's a hint of a subtle freckle or two appearing on the bridge of the nose that were not as noticeable before.\n\n**CAPTION:** Another day, another dollar! 🍂 Embracing the cozy vibes as the days get shorter. #AutumnVibes #WorkLife #AlmostFriday",
+      "id": 22,
+      "createdAt": "2025-12-18T17:15:27.736Z"
+    },
+    {
       "date": "Dec 17",
       "caption": "Day 83 📸",
       "image": "/generated-1765991729419.png",
