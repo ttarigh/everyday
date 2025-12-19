@@ -1,6 +1,23 @@
 {
   "posts": [
     {
+      "date": "Dec 19",
+      "caption": "** Cozy vibes on a chilly December day. Taking a moment to relax and enjoy the little things. ☕ #winter #cozy #relax #life",
+      "image": "/generated-1766164269168.png",
+      "comments": [
+        {
+          "id": "ylinycctc",
+          "text": "#aslightlyolderversionofaperson85daysafterseptember252025thepersoniswearingacasualsweaterandjeansstandingindoorsnearawindowwithnaturallightthesceneisacozylivingroomsubtlesignsofagingshouldbevisibleslightlymorepronouncedfinelinesaroundtheeyesandmouthaverysubtledeepeningofanyexistingwrinklesandperhapsatinyhintofagespotsbeginningtoappeartheskinshouldlookslightlydrierasiscommoninlatefallearlywinterthehairshouldbestyledsimilarlytotheoriginalphotobutpotentiallywithafewmorestrayhairsorslightlylessvibrantcolortheoverallexpressionisrelaxedandcontentthelightingissoftandwarmemphasizingthecozyatmospherenospecificmakeupdetailsordrastichairstylechangesthepersonisholdingamugasifenjoyingawarmdrinkcaptioncozyvibesonachillydecemberdaytakingamomenttorelaxandenjoythelittlethingswintercozyrelaxlife #ai",
+          "isHashtag": true,
+          "createdAt": "2025-12-19T17:11:09.184Z"
+        }
+      ],
+      "daysSinceBaseline": 85,
+      "generatedPrompt": "** A slightly older version of a person, 85 days after September 25, 2025. The person is wearing a casual sweater and jeans, standing indoors near a window with natural light. The scene is a cozy living room. Subtle signs of aging should be visible: slightly more pronounced fine lines around the eyes and mouth, a very subtle deepening of any existing wrinkles, and perhaps a tiny hint of age spots beginning to appear. The skin should look slightly drier, as is common in late fall/early winter. The hair should be styled similarly to the original photo but potentially with a few more stray hairs or slightly less vibrant color. The overall expression is relaxed and content. The lighting is soft and warm, emphasizing the cozy atmosphere. No specific makeup details or drastic hairstyle changes. The person is holding a mug, as if enjoying a warm drink.\n\n**CAPTION:** Cozy vibes on a chilly December day. Taking a moment to relax and enjoy the little things. ☕ #winter #cozy #relax #life",
+      "id": 23,
+      "createdAt": "2025-12-19T17:11:09.184Z"
+    },
+    {
       "date": "Dec 18",
       "caption": "** Another day, another dollar! 🍂 Embracing the cozy vibes as the days get shorter. #AutumnVibes #WorkLife #AlmostFriday",
       "image": "/generated-1766078127720.png",
