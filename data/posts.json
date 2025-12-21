@@ -1,6 +1,23 @@
 {
   "posts": [
     {
+      "date": "Dec 21",
+      "caption": "Wrapping up the last few projects before the holidays! Feeling that end-of-year cozy vibe. ☕ #workfromhome #wintervibes #almostthere #cozy",
+      "image": "/generated-1766336946216.png",
+      "comments": [
+        {
+          "id": "9if14tz1m",
+          "text": "#aslightlymorematurewomanlate30swithlightlinesformingaroundhereyesandmouthisworkingfromhomeatalaptopitisdecember212025thelightingissoftwinterdaylightfilteringthroughawindowsheswearingacozycreamcoloredknitsweaterandhasherbrownhairpulledbackinalowponytailsubtleshadowsunderhereyessuggestabitofendofyearfatigueherstyleisstillcasualandprofessionalwithsimplestudearringsthebackgroundisablurredhomeofficesetupwithabookshelfandwarmlightingshehasahalfemptymugofteanexttoherlaptoptheoverallfeelingisofquietproductivityandatouchofseasonalcozinesshersmileisslightbutgenuine #ai",
+          "isHashtag": true,
+          "createdAt": "2025-12-21T17:09:06.232Z"
+        }
+      ],
+      "daysSinceBaseline": 87,
+      "generatedPrompt": "A slightly more mature woman, late 30s, with light lines forming around her eyes and mouth, is working from home at a laptop. It is December 21, 2025. The lighting is soft, winter daylight filtering through a window. She's wearing a cozy, cream-colored knit sweater and has her brown hair pulled back in a low ponytail. Subtle shadows under her eyes suggest a bit of end-of-year fatigue. Her style is still casual and professional, with simple stud earrings. The background is a blurred home office setup with a bookshelf and warm lighting. She has a half-empty mug of tea next to her laptop. The overall feeling is of quiet productivity and a touch of seasonal coziness. Her smile is slight but genuine.",
+      "id": 25,
+      "createdAt": "2025-12-21T17:09:06.232Z"
+    },
+    {
       "date": "Dec 20",
       "caption": "Day 86 📸",
       "image": "/generated-1766250507490.png",
