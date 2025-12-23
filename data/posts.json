@@ -1,6 +1,23 @@
 {
   "posts": [
     {
+      "date": "Dec 23",
+      "caption": "Day 89 📸",
+      "image": "/generated-1766509948810.png",
+      "comments": [
+        {
+          "id": "sggwxhri0",
+          "text": "#okayiunderstandpleaseprovidetheoriginalphotooraverydetaileddescriptionofthepersonsappearancestyleandthesettingoftheoriginalphotoiwillthencreatetheimagepromptandcaptionfollowingyourinstructions #ai",
+          "isHashtag": true,
+          "createdAt": "2025-12-23T17:12:28.827Z"
+        }
+      ],
+      "daysSinceBaseline": 89,
+      "generatedPrompt": "Okay, I understand. Please provide the original photo or a very detailed description of the person's appearance, style, and the setting of the original photo. I will then create the image prompt and caption following your instructions.",
+      "id": 27,
+      "createdAt": "2025-12-23T17:12:28.827Z"
+    },
+    {
       "date": "Dec 22",
       "caption": "Sunday morning slow down. Perfect weather for soup and a good book 🍂 #weekendvibes #fallmood #homemade #cozyathome",
       "image": "/generated-1766423447436.png",
