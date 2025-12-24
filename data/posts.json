@@ -1,6 +1,23 @@
 {
   "posts": [
     {
+      "date": "Dec 24",
+      "caption": "Bundled up and braving the winter chill! ☕❄️ Just another day, another coffee, and another little step forward. #WinterVibes #DailyLife #AgingGracefully",
+      "image": "/generated-1766596168995.png",
+      "comments": [
+        {
+          "id": "axem9of2g",
+          "text": "#arealisticphotoofawomanapproximately30yearsoldwithshoulderlengthdarkhairandwarmbrowneyesshehasafriendlyapproachabledemeanorsheisstandingoutsideinearlywintersunlightitslatedecemberandtheresalightdustingofsnowonthegroundsheswearingastylishbutpracticaldarkgreenwoolcoatamutedburgundyscarfandleatherglovesinherhandshesholdingareusablecoffeecupherfaceshowsaverysubtleincreaseinfinelinesaroundhereyesandmouthcomparedtoapicturetakeninlateseptembertheresaslightincreaseinskindrynessreflectingthecolderweatherandthefainthintofashadowunderhereyessuggestingabusyworkweektheoveralllightingissoftanddiffusedhighlightingthesubtlechangesinherappearanceduetothepassageoftimeandseasonalchangethebackgroundisblurredsuggestinganurbanparkorstreetmaintainheroriginalstyleandoverallappearancejustagedby90days #ai",
+          "isHashtag": true,
+          "createdAt": "2025-12-24T17:09:29.012Z"
+        }
+      ],
+      "daysSinceBaseline": 90,
+      "generatedPrompt": "A realistic photo of a woman, approximately 30 years old, with shoulder-length dark hair and warm brown eyes. She has a friendly, approachable demeanor. She is standing outside in early winter sunlight. It's late December, and there's a light dusting of snow on the ground. She's wearing a stylish, but practical, dark green wool coat, a muted burgundy scarf, and leather gloves. In her hand, she's holding a reusable coffee cup. Her face shows a very subtle increase in fine lines around her eyes and mouth compared to a picture taken in late September. There's a slight increase in skin dryness, reflecting the colder weather, and the faint hint of a shadow under her eyes suggesting a busy work week. The overall lighting is soft and diffused, highlighting the subtle changes in her appearance due to the passage of time and seasonal change. The background is blurred, suggesting an urban park or street. Maintain her original style and overall appearance, just aged by 90 days.",
+      "id": 28,
+      "createdAt": "2025-12-24T17:09:29.012Z"
+    },
+    {
       "date": "Dec 23",
       "caption": "Day 89 📸",
       "image": "/generated-1766509948810.png",
