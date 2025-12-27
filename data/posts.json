@@ -1,6 +1,23 @@
 {
   "posts": [
     {
+      "date": "Dec 27",
+      "caption": "Cozying up with a good book on a chilly December afternoon. ✨ #wintervibes #sweaterweather #simplejoys",
+      "image": "/generated-1766855358618.png",
+      "comments": [
+        {
+          "id": "5w148f9zx",
+          "text": "#closeupportraitofawomaninherlate20swithwarmbrownhairstyledsimilarlytotheoriginalphotouseoriginalreferenceifavailableotherwiseimagineshoulderlengthwavessheiswearingacozychunkyknitcreamcoloredsweaterandathingoldnecklaceshessittingindoorsnearawindowthesoftovercastlightofalatedecemberafternoonilluminatingherfacethelightinghighlightsthefaintbeginningsoffinelinesaroundhereyesandmouthmorenoticeablewhenshesmilesslightlyherskinhasaslightlypalertonethanintheoriginalphotoreflectingthelackofsummersunthereareverysubtlehintsofdarknessunderhereyessuggestingmildfatigueherexpressionisthoughtfulandcontentthefocusshouldbesoftandnaturalemphasizingrealismandavoidinganyartificialsmoothingorfilterstheoverallimpressionisoneofcomfortableeverydaylifeduringthewintermonths #ai",
+          "isHashtag": true,
+          "createdAt": "2025-12-27T17:09:18.639Z"
+        }
+      ],
+      "daysSinceBaseline": 93,
+      "generatedPrompt": "Close-up portrait of a woman in her late 20s with warm brown hair, styled similarly to the original photo (use original reference if available - otherwise imagine shoulder-length waves). She is wearing a cozy, chunky knit cream-colored sweater and a thin gold necklace. She's sitting indoors near a window, the soft, overcast light of a late December afternoon illuminating her face. The lighting highlights the faint beginnings of fine lines around her eyes and mouth, more noticeable when she smiles slightly. Her skin has a slightly paler tone than in the original photo, reflecting the lack of summer sun. There are very subtle hints of darkness under her eyes, suggesting mild fatigue. Her expression is thoughtful and content. The focus should be soft and natural, emphasizing realism and avoiding any artificial smoothing or filters. The overall impression is one of comfortable, everyday life during the winter months.",
+      "id": 31,
+      "createdAt": "2025-12-27T17:09:18.639Z"
+    },
+    {
       "date": "Dec 26",
       "caption": "Day 92 📸",
       "image": "/generated-1766768967176.png",
