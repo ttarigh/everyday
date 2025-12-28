@@ -1,6 +1,23 @@
 {
   "posts": [
     {
+      "date": "Dec 28",
+      "caption": "short Instagram caption about this day",
+      "image": "/generated-1766941772486.png",
+      "comments": [
+        {
+          "id": "jp3zw2l60",
+          "text": "#detaileddescriptionforimagegeneration #ai",
+          "isHashtag": true,
+          "createdAt": "2025-12-28T17:09:32.502Z"
+        }
+      ],
+      "daysSinceBaseline": 94,
+      "generatedPrompt": "detailed description for image generation",
+      "id": 32,
+      "createdAt": "2025-12-28T17:09:32.502Z"
+    },
+    {
       "date": "Dec 27",
       "caption": "Cozying up with a good book on a chilly December afternoon. ✨ #wintervibes #sweaterweather #simplejoys",
       "image": "/generated-1766855358618.png",
