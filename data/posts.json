@@ -1,6 +1,23 @@
 {
   "posts": [
     {
+      "date": "Dec 29",
+      "caption": "Cozy mornings and strong coffee. Perfect way to wind down the year. ✨☕ #WinterVibes #HomeSweetHome #Relaxing",
+      "image": "/generated-1767028229017.png",
+      "comments": [
+        {
+          "id": "fte1zulmm",
+          "text": "#aslightlyhigherangleshotofawomanwithlightbrownhairstyledsimilarlytotheoriginalphotobutwithafewmoreloosestrandsframingherfaceshehasthesamewarmcomplexionbutwithslightlymorepronouncednasolabialfoldsandsubtlelinesaroundhereyessheswearingacozyslightlyoversizedgreyknitsweateranddarkwashjeansshessittingatakitchencounterilluminatedbywarmnaturallightfromanearbywindowsheslookingdirectlyatthecamerawithagentlesmileholdingamugofcoffeeherhandsshowverysubtlesignsofdrynessfromthecolderweathertheresahintofholidaydecorationsinthebackgroundsubtlyblurredperhapsastringoffairylightsoraglimpseofadecoratedtreetheoverallmoodisrelaxedandcomfortablesuggestingaquietmorningathomethepicturehasaslightlywarmercolorpalettereflectingtheindoorsettingandtimeofyear #ai",
+          "isHashtag": true,
+          "createdAt": "2025-12-29T17:10:29.033Z"
+        }
+      ],
+      "daysSinceBaseline": 95,
+      "generatedPrompt": "A slightly higher-angle shot of a woman with light brown hair, styled similarly to the original photo but with a few more loose strands framing her face. She has the same warm complexion, but with slightly more pronounced nasolabial folds and subtle lines around her eyes. She's wearing a cozy, slightly oversized grey knit sweater and dark wash jeans. She's sitting at a kitchen counter, illuminated by warm, natural light from a nearby window. She's looking directly at the camera with a gentle smile, holding a mug of coffee. Her hands show very subtle signs of dryness from the colder weather. There's a hint of holiday decorations in the background, subtly blurred – perhaps a string of fairy lights or a glimpse of a decorated tree. The overall mood is relaxed and comfortable, suggesting a quiet morning at home. The picture has a slightly warmer color palette, reflecting the indoor setting and time of year.",
+      "id": 33,
+      "createdAt": "2025-12-29T17:10:29.033Z"
+    },
+    {
       "date": "Dec 28",
       "caption": "short Instagram caption about this day",
       "image": "/generated-1766941772486.png",
