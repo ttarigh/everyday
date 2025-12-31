@@ -1,6 +1,23 @@
 {
   "posts": [
     {
+      "date": "Dec 31",
+      "caption": "** Chasing those January blues away with a strong cup of coffee and a good to-do list. #winterwork #homeoffice #stillgoingstrong",
+      "image": "/generated-1767200979031.png",
+      "comments": [
+        {
+          "id": "vnhi6pekj",
+          "text": "#aslightlymorematureversionofthesamepersonnowinearlyjanuary2026thesubjectisindoorsbathedinsoftnaturallightfromawindowpossiblyahomeofficesettingtheyarewearingacomfortableslightlywornneutraltonedsweaterperhapswithaglimpseofacollaredshirtunderneathsubtlechangesincludeslightlymorepronouncednasolabialfoldsahintoffinelinesaroundtheeyescrowsfeetandperhapsaslightlylessvibrantskintonethehairisstyledsimilarlybutmayhaveafewmorestraystrandsoratouchmoregrayatthetemplestheoverallimpressionisstillyouthfulandhealthybutwiththeverysubtlesignsofnearly100daysofagingtheexpressionisthoughtfulperhapsfocusedonacomputerscreenjustoutofframebackgroundshouldbeblurredbutsuggestawellorganizedlivedinspacethelightingissoftandalittlecoolreflectingthewinterseasoncaptionchasingthosejanuarybluesawaywithastrongcupofcoffeeandagoodtodolistwinterworkhomeofficestillgoingstrong #ai",
+          "isHashtag": true,
+          "createdAt": "2025-12-31T17:09:39.048Z"
+        }
+      ],
+      "daysSinceBaseline": 97,
+      "generatedPrompt": "** A slightly more mature version of the same person, now in early January 2026. The subject is indoors, bathed in soft, natural light from a window, possibly a home office setting. They are wearing a comfortable, slightly worn, neutral-toned sweater, perhaps with a glimpse of a collared shirt underneath. Subtle changes include slightly more pronounced nasolabial folds, a hint of fine lines around the eyes (crow's feet), and perhaps a slightly less vibrant skin tone. The hair is styled similarly but may have a few more stray strands or a touch more gray at the temples. The overall impression is still youthful and healthy, but with the very subtle signs of nearly 100 days of aging. The expression is thoughtful, perhaps focused on a computer screen just out of frame. Background should be blurred but suggest a well-organized, lived-in space. The lighting is soft and a little cool, reflecting the winter season.\n\n**CAPTION:** Chasing those January blues away with a strong cup of coffee and a good to-do list. #winterwork #homeoffice #stillgoingstrong",
+      "id": 35,
+      "createdAt": "2025-12-31T17:09:39.048Z"
+    },
+    {
       "date": "Dec 30",
       "caption": "Day 96 📸",
       "image": "/generated-1767114793660.png",
