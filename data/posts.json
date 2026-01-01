@@ -1,6 +1,23 @@
 {
   "posts": [
     {
+      "date": "Jan 1",
+      "caption": "Back at the home office after the holidays! Feeling refreshed and ready to tackle the new year. ☕ #workfromhome #newyear #cozyvibes",
+      "image": "/generated-1767287489919.png",
+      "comments": [
+        {
+          "id": "lgl52dfc3",
+          "text": "#amediumshotofawomaninherlate20searly30ssittingatadeskinahomeofficesheswearingacomfortableslightlyoversizedcableknitsweaterinamutedearthtoneperhapsolivegreenormustardyellowthelightingissoftsuggestinglateafternoonshehasaslightsmileandhereyesarefocusedonalaptopscreeninfrontofhertheresasteamingmugofteaorcoffeenexttothelaptopsubtledetailsreflecting98daysofagingveryslightlymorepronouncednasolabialfoldssmilelinesatouchofdrynessaroundtheeyeswinterairandperhapsasinglestrandofsilverhairvisiblenearhertempleherhairstyleisthesameastheoriginalphotoassumetheuserprovidedanoriginalphotobutperhapsalittlelessperfectlystyledsuggestingarelaxedworkfromhomedaythebackgroundisslightlyblurredshowingabookshelfandaframedpieceofarttheoverallmoodiscozyandcontent #ai",
+          "isHashtag": true,
+          "createdAt": "2026-01-01T17:11:29.936Z"
+        }
+      ],
+      "daysSinceBaseline": 98,
+      "generatedPrompt": "A medium shot of a woman in her late 20s/early 30s, sitting at a desk in a home office. She's wearing a comfortable, slightly oversized cable-knit sweater in a muted earth tone (perhaps olive green or mustard yellow). The lighting is soft, suggesting late afternoon. She has a slight smile, and her eyes are focused on a laptop screen in front of her. There's a steaming mug of tea or coffee next to the laptop. Subtle details reflecting 98 days of aging: very slightly more pronounced nasolabial folds (smile lines), a touch of dryness around the eyes (winter air), and perhaps a single strand of silver hair visible near her temple. Her hairstyle is the same as the original photo (assume the user provided an original photo), but perhaps a little less perfectly styled, suggesting a relaxed work-from-home day. The background is slightly blurred, showing a bookshelf and a framed piece of art. The overall mood is cozy and content.",
+      "id": 36,
+      "createdAt": "2026-01-01T17:11:29.936Z"
+    },
+    {
       "date": "Dec 31",
       "caption": "** Chasing those January blues away with a strong cup of coffee and a good to-do list. #winterwork #homeoffice #stillgoingstrong",
       "image": "/generated-1767200979031.png",
