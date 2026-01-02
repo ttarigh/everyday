@@ -1,6 +1,23 @@
 {
   "posts": [
     {
+      "date": "Jan 2",
+      "caption": "** Back to work after the holidays! Feeling refreshed and ready to tackle the new year. ☕ #newyear #homeoffice #workfromhome #january",
+      "image": "/generated-1767373813273.png",
+      "comments": [
+        {
+          "id": "hd5965ag6",
+          "text": "#closeupportraitofawomaninherlate20swithmediumlengthbrownhairsittingatadeskinahomeofficesheswearingacozygreysweaterandglasseswithaslightsmilethelightingissoftandwarmsuggestinglateafternoonsubtlechangesincludeslightlyfinerlinesaroundhereyesabarelyperceptibledeepeningofhernasolabialfoldsandatouchmorevolumeinherhairpossiblyduetoaslightpermorstylingtheoverallimpressionisstillverysimilartotheoriginalphotobutwithasubtleagingeffectthebackgroundshowsabookshelfandacomputermonitorthedateisjanuary2nd2026captionbacktoworkaftertheholidaysfeelingrefreshedandreadytotacklethenewyearnewyearhomeofficeworkfromhomejanuary #ai",
+          "isHashtag": true,
+          "createdAt": "2026-01-02T17:10:13.290Z"
+        }
+      ],
+      "daysSinceBaseline": 99,
+      "generatedPrompt": "** Close-up portrait of a woman in her late 20s with medium-length brown hair, sitting at a desk in a home office. She's wearing a cozy grey sweater and glasses, with a slight smile. The lighting is soft and warm, suggesting late afternoon. Subtle changes include: slightly finer lines around her eyes, a barely perceptible deepening of her nasolabial folds, and a touch more volume in her hair (possibly due to a slight perm or styling). The overall impression is still very similar to the original photo, but with a subtle aging effect. The background shows a bookshelf and a computer monitor. The date is January 2nd, 2026.\n\n**CAPTION:** Back to work after the holidays! Feeling refreshed and ready to tackle the new year. ☕ #newyear #homeoffice #workfromhome #january",
+      "id": 37,
+      "createdAt": "2026-01-02T17:10:13.290Z"
+    },
+    {
       "date": "Jan 1",
       "caption": "Back at the home office after the holidays! Feeling refreshed and ready to tackle the new year. ☕ #workfromhome #newyear #cozyvibes",
       "image": "/generated-1767287489919.png",
