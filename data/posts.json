@@ -1,6 +1,23 @@
 {
   "posts": [
     {
+      "date": "Jan 3",
+      "caption": "Back to work after the holidays! Feeling refreshed but also ready for a nap. #WinterWorkVibes #Day100 #AgingGracefully",
+      "image": "/generated-1767460164049.png",
+      "comments": [
+        {
+          "id": "03s77gf8h",
+          "text": "#a35yearoldcaucasianwomannow100daysolderinearlyjanuaryshehasmediumlengthbrownhairwithslightlylessvibranthighlightsandafewbarelyvisiblenewfinelinesaroundherblueeyesherfairskinisslightlypalerduetowinterandthefrecklesarealittlelessprominentsheiswearingadarkgreyturtlenecksweaterandablazerstandinginasimilarwelllitofficeenvironmentherexpressionisstillaslightsmilebutwithahintoftirednessaroundtheeyesthelightingshouldbesoftandrealisticreflectingacloudywinterday #ai",
+          "isHashtag": true,
+          "createdAt": "2026-01-03T17:09:24.065Z"
+        }
+      ],
+      "daysSinceBaseline": 100,
+      "generatedPrompt": "A 35-year-old Caucasian woman, now 100 days older, in early January. She has medium-length brown hair with slightly less vibrant highlights and a few barely visible new fine lines around her blue eyes. Her fair skin is slightly paler due to winter, and the freckles are a little less prominent. She is wearing a dark grey turtleneck sweater and a blazer, standing in a similar well-lit office environment. Her expression is still a slight smile, but with a hint of tiredness around the eyes. The lighting should be soft and realistic, reflecting a cloudy winter day.",
+      "id": 38,
+      "createdAt": "2026-01-03T17:09:24.065Z"
+    },
+    {
       "date": "Jan 2",
       "caption": "** Back to work after the holidays! Feeling refreshed and ready to tackle the new year. ☕ #newyear #homeoffice #workfromhome #january",
       "image": "/generated-1767373813273.png",
