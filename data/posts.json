@@ -1,6 +1,23 @@
 {
   "posts": [
     {
+      "date": "Jan 4",
+      "caption": "Day 101 📸",
+      "image": "/generated-1767546568540.png",
+      "comments": [
+        {
+          "id": "vv0angrh6",
+          "text": "#okayiunderstandpleaseprovidetheoriginalphotosoicancreatetheimagepromptandcaptionineedthevisualinformationtoworkonceyouprovidetheimageiwillreturntheresponseexactlyasrequested #ai",
+          "isHashtag": true,
+          "createdAt": "2026-01-04T17:09:28.556Z"
+        }
+      ],
+      "daysSinceBaseline": 101,
+      "generatedPrompt": "Okay, I understand. Please provide the original photo so I can create the image prompt and caption. I need the visual information to work.\n\nOnce you provide the image, I will return the response *exactly* as requested.",
+      "id": 39,
+      "createdAt": "2026-01-04T17:09:28.556Z"
+    },
+    {
       "date": "Jan 3",
       "caption": "Back to work after the holidays! Feeling refreshed but also ready for a nap. #WinterWorkVibes #Day100 #AgingGracefully",
       "image": "/generated-1767460164049.png",
