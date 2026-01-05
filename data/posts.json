@@ -1,6 +1,23 @@
 {
   "posts": [
     {
+      "date": "Jan 5",
+      "caption": "Day 102 📸",
+      "image": "/generated-1767633267899.png",
+      "comments": [
+        {
+          "id": "zuc2tlnv7",
+          "text": "#okayiunderstandpleaseprovidetheoriginalphotoofthepersononceyouprovidethephotoiwillgeneratetheimageandthetextasrequested #ai",
+          "isHashtag": true,
+          "createdAt": "2026-01-05T17:14:27.913Z"
+        }
+      ],
+      "daysSinceBaseline": 102,
+      "generatedPrompt": "Okay, I understand. Please provide the original photo of the person. Once you provide the photo, I will generate the image and the text as requested.",
+      "id": 40,
+      "createdAt": "2026-01-05T17:14:27.913Z"
+    },
+    {
       "date": "Jan 4",
       "caption": "Day 101 📸",
       "image": "/generated-1767546568540.png",
