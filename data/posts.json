@@ -1,6 +1,23 @@
 {
   "posts": [
     {
+      "date": "Jan 6",
+      "caption": "Cozy evenings are the best. ✨ #wintervibes #stayingwarm #januarydays",
+      "image": "/generated-1767719719454.png",
+      "comments": [
+        {
+          "id": "kku16jhfa",
+          "text": "#amediumcloseupportraitofapersonsubtlyoldertheyareindoorsnearawindowwithsoftdiffusedwinterlighttheyhaveslightlymoredefinedsmilelinesaroundtheireyesandmouthalmostimperceptiblebutpresenttheirskinisslightlydrierwithatinybitmoretexturetheyarewearingacasualcomfortablesweaterinamutedcolorandtheirhairisstyledsimilarlytohowitwasbeforebutmaybealittlelessperfectlyasiftheywereathomethebackgroundisblurredsuggestingacozylivingroomthepersonislookingdirectlyatthecamerawithagentleslightlywearysmile #ai",
+          "isHashtag": true,
+          "createdAt": "2026-01-06T17:15:19.471Z"
+        }
+      ],
+      "daysSinceBaseline": 103,
+      "generatedPrompt": "A medium close-up portrait of a person, subtly older. They are indoors, near a window with soft, diffused winter light. They have slightly more defined smile lines around their eyes and mouth, almost imperceptible but present. Their skin is slightly drier, with a tiny bit more texture. They are wearing a casual, comfortable sweater in a muted color, and their hair is styled similarly to how it was before, but maybe a little less perfectly, as if they were at home. The background is blurred, suggesting a cozy living room. The person is looking directly at the camera with a gentle, slightly weary smile.",
+      "id": 41,
+      "createdAt": "2026-01-06T17:15:19.471Z"
+    },
+    {
       "date": "Jan 5",
       "caption": "Day 102 📸",
       "image": "/generated-1767633267899.png",
