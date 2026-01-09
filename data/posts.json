@@ -1,6 +1,23 @@
 {
   "posts": [
     {
+      "date": "Jan 9",
+      "caption": "Day 106 📸",
+      "image": "/generated-1767978931741.png",
+      "comments": [
+        {
+          "id": "0igkknkgb",
+          "text": "#okayiunderstandpleaseprovidetheoriginalphotoonceihavetheimageiwillgeneratetherequestedagingprogressionandaccompanyingtextineedtheoriginalimagetofulfillthisrequest #ai",
+          "isHashtag": true,
+          "createdAt": "2026-01-09T17:15:31.757Z"
+        }
+      ],
+      "daysSinceBaseline": 106,
+      "generatedPrompt": "Okay, I understand. Please provide the original photo. Once I have the image, I will generate the requested aging progression and accompanying text. I need the original image to fulfill this request.",
+      "id": 44,
+      "createdAt": "2026-01-09T17:15:31.757Z"
+    },
+    {
       "date": "Jan 8",
       "caption": "** January glow ✨ Embracing the cozy vibes and a few extra laugh lines. #winterdays #gettingolder #selflove",
       "image": "/generated-1767892772435.png",
