@@ -1,6 +1,23 @@
 {
   "posts": [
     {
+      "date": "Jan 11",
+      "caption": "** [short Instagram caption about this day]\n\n**Example (Once Photo is Provided - This is just an example):**\n\n**Let's say the original photo shows a person with shoulder-length brown hair, wearing a blue button-down shirt, smiling slightly, taken outdoors in natural light.**\n\n**IMAGE PROMPT:** A realistic image of a person with shoulder-length brown hair. The person is outdoors in soft winter light, wearing a cozy grey wool sweater and a dark blue scarf loosely wrapped around their neck. Subtle signs of aging are present, including slightly more prominent nasolabial folds and a few more fine lines around the eyes, barely noticeable. The skin appears slightly drier and paler due to the winter season. The person is holding a takeaway coffee cup and smiling faintly, with a relaxed, content expression. The background is slightly blurred, suggesting a city street with bare trees.\n\n**CAPTION:** Enjoying a little winter sunshine and a warm coffee. ☕️ #wintervibes #dailymoments #simplejoys",
+      "image": "/generated-1768151348741.png",
+      "comments": [
+        {
+          "id": "70lkr5f63",
+          "text": "#detaileddescriptionforimagegenerationcaptionshortinstagramcaptionaboutthisdayexampleoncephotoisprovidedthisisjustanexampleletssaytheoriginalphotoshowsapersonwithshoulderlengthbrownhairwearingabluebuttondownshirtsmilingslightlytakenoutdoorsinnaturallightimagepromptarealisticimageofapersonwithshoulderlengthbrownhairthepersonisoutdoorsinsoftwinterlightwearingacozygreywoolsweaterandadarkbluescarflooselywrappedaroundtheirnecksubtlesignsofagingarepresentincludingslightlymoreprominentnasolabialfoldsandafewmorefinelinesaroundtheeyesbarelynoticeabletheskinappearsslightlydrierandpalerduetothewinterseasonthepersonisholdingatakeawaycoffeecupandsmilingfaintlywitharelaxedcontentexpressionthebackgroundisslightlyblurredsuggestingacitystreetwithbaretreescaptionenjoyingalittlewintersunshineandawarmcoffeewintervibesdailymomentssimplejoys #ai",
+          "isHashtag": true,
+          "createdAt": "2026-01-11T17:09:08.759Z"
+        }
+      ],
+      "daysSinceBaseline": 108,
+      "generatedPrompt": "** [detailed description for image generation]\n**CAPTION:** [short Instagram caption about this day]\n\n**Example (Once Photo is Provided - This is just an example):**\n\n**Let's say the original photo shows a person with shoulder-length brown hair, wearing a blue button-down shirt, smiling slightly, taken outdoors in natural light.**\n\n**IMAGE PROMPT:** A realistic image of a person with shoulder-length brown hair. The person is outdoors in soft winter light, wearing a cozy grey wool sweater and a dark blue scarf loosely wrapped around their neck. Subtle signs of aging are present, including slightly more prominent nasolabial folds and a few more fine lines around the eyes, barely noticeable. The skin appears slightly drier and paler due to the winter season. The person is holding a takeaway coffee cup and smiling faintly, with a relaxed, content expression. The background is slightly blurred, suggesting a city street with bare trees.\n\n**CAPTION:** Enjoying a little winter sunshine and a warm coffee. ☕️ #wintervibes #dailymoments #simplejoys",
+      "id": 46,
+      "createdAt": "2026-01-11T17:09:08.759Z"
+    },
+    {
       "date": "Jan 10",
       "caption": "Cozy Saturday mornings. ☕️ Enjoying the quiet before the weekend adventures begin. #wintervibes #slowliving #saturdaymorning",
       "image": "/generated-1768064975714.png",
